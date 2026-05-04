@@ -1,0 +1,10 @@
+node_modules
+.git
+.gitignore
+README.md
+DEPLOY-RAILWAY.md
+Procfile
+nixpacks.toml
+railway.json
+.vscode
+.DS_Store

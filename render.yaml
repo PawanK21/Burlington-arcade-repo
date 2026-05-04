@@ -3,6 +3,7 @@ services:
     name: burlington-arcade
     runtime: java
     runtimeVersion: 21
+    rootDir: .
     buildCommand: mvn clean package -DskipTests
     startCommand: java -Dserver.port=$PORT -jar target/arcade-sales-deck-1.0.0.jar
     envVars:
