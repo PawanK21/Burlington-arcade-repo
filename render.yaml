@@ -1,11 +1,9 @@
 services:
   - type: web
     name: burlington-arcade
-    runtime: java
-    runtimeVersion: 21
-    rootDir: .
-    buildCommand: mvn clean package -DskipTests
-    startCommand: java -Dserver.port=$PORT -jar target/arcade-sales-deck-1.0.0.jar
+    runtime: custom
+    buildCommand: bash build.sh
+    startCommand: bash start.sh
     envVars:
       - key: JWT_SECRET
         scope: build,runtime
