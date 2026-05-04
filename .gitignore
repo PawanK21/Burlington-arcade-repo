@@ -1,0 +1,38 @@
+# Maven
+target/
+*.jar
+*.war
+*.class
+
+# IDE
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+.eclipse/
+.settings/
+.project
+.classpath
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Spring Boot
+spring-shell.log
+
+# H2 database files
+data/
+*.mv.db
+*.trace.db
+*.lock.db
+
+# Environment / secrets
+.env
+application-local.properties
+application-prod.properties

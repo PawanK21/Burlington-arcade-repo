@@ -1,0 +1,1618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Burlington Arcade — Sales Intelligence Portal</title>
+<meta name="description" content="Burlington Arcade — Est. 1819, Mayfair London. The world's first shopping mall. Luxury retail leasing, brand partnerships, and exclusive event hosting."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Cinzel:wght@400;500;600;700&family=Jost:wght@200;300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+/* ╔══════════════════════════════════════════════════════════════╗
+   ║  BURLINGTON ARCADE — REGENCY NOIR DESIGN SYSTEM             ║
+   ║  Obsidian · Champagne Gold · Warm Ivory · Architectural     ║
+   ╚══════════════════════════════════════════════════════════════╝ */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --gold:#C9AA71; --gold-l:#E5D4A8; --gold-d:#8C6F3A; --gold-xs:rgba(201,170,113,.08);
+  --ink:#05050A; --ink-2:#0B0B10; --ink-3:#131318; --ink-4:#1A1A22;
+  --ivory:#F8F5EF; --ivory-2:#EDE8DF; --ivory-3:#CAC3B5;
+  --stone:#8B8580; --stone-l:#A8A29C; --stone-d:#59524D;
+  --border:rgba(201,170,113,.16); --border-m:rgba(201,170,113,.28); --border-l:rgba(201,170,113,.06);
+  --ease:cubic-bezier(.23,1,.32,1); --ease-e:cubic-bezier(.16,1,.3,1); --ease-b:cubic-bezier(.34,1.56,.64,1);
+  --nav:72px; --r:0px;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Jost',sans-serif;background:var(--ink);color:var(--ivory);
+  overflow-x:hidden;cursor:none;-webkit-font-smoothing:antialiased}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar{width:3px}
+::-webkit-scrollbar-track{background:var(--ink)}
+::-webkit-scrollbar-thumb{background:var(--gold-d)}
+
+/* ══════════ CURSOR ══════════ */
+#cur,#cur-r{position:fixed;top:0;left:0;z-index:9999;border-radius:50%;pointer-events:none;transform:translate(-50%,-50%)}
+#cur{width:9px;height:9px;background:var(--gold);transition:width .25s var(--ease),height .25s var(--ease),opacity .3s}
+#cur-r{width:32px;height:32px;border:1px solid rgba(201,170,113,.45);
+  transition:transform .38s var(--ease),width .3s var(--ease),height .3s var(--ease),border-color .3s}
+.hov #cur{width:5px;height:5px;opacity:.6}
+.hov #cur-r{width:54px;height:54px;border-color:var(--gold)}
+
+/* ══════════ LOADER ══════════ */
+#ldr{position:fixed;inset:0;z-index:10000;background:var(--ink);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:32px;
+  transition:opacity 1s var(--ease)}
+.ldr-g{position:relative;width:80px;height:80px}
+.ldr-arch{position:absolute;top:0;left:50%;transform:translateX(-50%);
+  border:1px solid var(--gold);border-radius:50% 50% 0 0/35% 35% 0 0;
+  animation:ldrArch 1.8s ease-in-out infinite}
+.ldr-arch:nth-child(1){width:80px;height:80px;animation-delay:0s}
+.ldr-arch:nth-child(2){width:56px;height:58px;border-color:rgba(201,170,113,.4);animation-delay:-.6s}
+.ldr-arch:nth-child(3){width:36px;height:38px;border-color:rgba(201,170,113,.2);animation-delay:-1.2s}
+@keyframes ldrArch{0%,100%{opacity:.2;transform:translateX(-50%) scaleY(.95)}50%{opacity:1;transform:translateX(-50%) scaleY(1)}}
+.ldr-txt{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.55em;color:var(--gold);opacity:.7;text-transform:uppercase}
+.ldr-bar{width:120px;height:1px;background:rgba(201,170,113,.12);overflow:hidden;position:relative}
+.ldr-bar::after{content:'';position:absolute;inset:0;background:var(--gold);
+  animation:ldrSlide 1.8s ease-in-out infinite}
+@keyframes ldrSlide{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
+
+/* ══════════ AUTH OVERLAY ══════════ */
+#auth-overlay{position:fixed;inset:0;z-index:8000;background:var(--ink);
+  display:flex;align-items:center;justify-content:center;
+  background-image:
+    radial-gradient(ellipse 90% 70% at 50% 30%,rgba(201,170,113,.04) 0%,transparent 65%),
+    radial-gradient(ellipse 40% 40% at 80% 80%,rgba(201,170,113,.03) 0%,transparent 60%);
+  transition:opacity .7s var(--ease)}
+
+.auth-box{position:relative;width:min(460px,92vw);border:1px solid var(--border);
+  padding:48px 52px 44px;text-align:center;max-height:92vh;overflow-y:auto;
+  background:linear-gradient(160deg,rgba(201,170,113,.05) 0%,rgba(201,170,113,.01) 50%,transparent 100%)}
+.auth-box::before,.auth-box::after{content:'';position:absolute;left:32px;right:32px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+.auth-box::before{top:-1px}
+.auth-box::after{bottom:-1px}
+.auth-corners::before,.auth-corners::after{content:'';position:absolute;width:12px;height:12px;border-color:var(--gold);border-style:solid}
+.auth-corners::before{top:12px;left:12px;border-width:1px 0 0 1px}
+.auth-corners::after{bottom:12px;right:12px;border-width:0 1px 1px 0}
+.auth-emblem{font-size:32px;margin-bottom:20px;display:block;opacity:.25;
+  font-family:'Cinzel',serif;letter-spacing:.08em;color:var(--gold)}
+.auth-title{font-family:'Cinzel',serif;font-size:15px;letter-spacing:.38em;
+  color:var(--ivory);text-transform:uppercase;line-height:1;margin-bottom:6px}
+.auth-sub{font-size:10px;color:var(--stone);letter-spacing:.12em;margin-bottom:0}
+.auth-field{position:relative;margin-bottom:18px}
+.auth-in{width:100%;background:transparent;border:none;border-bottom:1px solid var(--border);
+  color:var(--ivory);font-family:'Jost',sans-serif;font-size:14px;letter-spacing:.04em;
+  padding:13px 0 13px 0;outline:none;transition:border-color .3s;cursor:none}
+.auth-in::placeholder{color:var(--stone-d)}
+.auth-in:focus{border-bottom-color:var(--gold)}
+.auth-label{position:absolute;top:-8px;left:0;font-size:9px;letter-spacing:.3em;
+  color:var(--gold);text-transform:uppercase;opacity:0;transition:opacity .3s}
+.auth-in:focus ~ .auth-label,.auth-in:not(:placeholder-shown) ~ .auth-label{opacity:1}
+.auth-btn{width:100%;background:var(--gold);border:none;color:var(--ink);
+  font-family:'Jost',sans-serif;font-size:11px;letter-spacing:.3em;font-weight:500;
+  padding:18px;cursor:none;text-transform:uppercase;
+  transition:all .3s var(--ease);margin-top:12px}
+.auth-btn:hover{background:var(--gold-l);transform:translateY(-1px);box-shadow:0 8px 24px rgba(201,170,113,.2)}
+.auth-btn:disabled{opacity:.5;transform:none;box-shadow:none}
+.auth-err{color:#e74c3c;font-size:11px;margin-top:16px;display:none;letter-spacing:.05em;line-height:1.6}
+.auth-success{color:#27ae60;font-size:11px;margin-top:16px;display:none;letter-spacing:.05em;line-height:1.6}
+.auth-hint{margin-top:36px;padding-top:24px;border-top:1px solid var(--border-l);
+  font-size:10px;color:var(--stone-d);letter-spacing:.08em;line-height:2.2}
+.auth-hint b{color:rgba(201,170,113,.6);font-weight:400}
+/* Auth Tabs */
+.auth-tabs{display:flex;gap:0;margin-bottom:36px;border-bottom:1px solid var(--border)}
+.auth-tab{flex:1;background:none;border:none;color:var(--stone);
+  font-family:'Cinzel',serif;font-size:10px;letter-spacing:.28em;text-transform:uppercase;
+  padding:14px 8px;cursor:none;transition:all .3s var(--ease);
+  border-bottom:2px solid transparent;margin-bottom:-1px}
+.auth-tab.on{color:var(--gold);border-bottom-color:var(--gold)}
+.auth-tab:hover{color:var(--gold-l)}
+/* Auth panels */
+.auth-panel{display:none;animation:authFadeIn .4s var(--ease)}
+.auth-panel.on{display:block}
+@keyframes authFadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+/* Password Strength */
+.pwd-strength{margin:-12px 0 18px;display:none}
+.pwd-strength.on{display:block}
+.pwd-bar{height:2px;background:var(--border);overflow:hidden;margin-bottom:6px}
+.pwd-fill{height:100%;width:0;transition:width .35s var(--ease),background .35s}
+.pwd-fill.s1{width:25%;background:#e74c3c}
+.pwd-fill.s2{width:50%;background:#e67e22}
+.pwd-fill.s3{width:75%;background:#f39c12}
+.pwd-fill.s4{width:100%;background:#27ae60}
+.pwd-text{font-size:9px;letter-spacing:.18em;color:var(--stone-d);text-transform:uppercase}
+.pwd-text.s1{color:#e74c3c}.pwd-text.s2{color:#e67e22}
+.pwd-text.s3{color:#f39c12}.pwd-text.s4{color:#27ae60}
+
+/* ══════════ NAVIGATION ══════════ */
+#nav{position:fixed;top:0;left:0;right:0;z-index:600;height:var(--nav);
+  display:flex;align-items:center;justify-content:space-between;padding:0 56px;
+  background:rgba(5,5,10,.9);backdrop-filter:blur(28px) saturate(1.6);
+  border-bottom:1px solid var(--border);transition:all .4s var(--ease)}
+.nav-brand{text-decoration:none;display:flex;flex-direction:column;gap:4px}
+.nav-brand-main{font-family:'Cinzel',serif;font-size:14px;letter-spacing:.38em;
+  color:var(--gold);text-transform:uppercase;line-height:1}
+.nav-brand-sub{font-size:8px;letter-spacing:.28em;color:var(--stone-d);text-transform:uppercase}
+.nav-links{display:flex;gap:0;list-style:none}
+.nav-a{font-size:9px;letter-spacing:.22em;color:var(--stone-l);text-transform:uppercase;
+  text-decoration:none;padding:10px 20px;cursor:none;transition:color .3s;
+  position:relative;background:none;border:none;font-family:'Jost',sans-serif}
+.nav-a::after{content:'';position:absolute;bottom:-1px;left:20px;right:20px;
+  height:1px;background:var(--gold);transform:scaleX(0);transform-origin:left;
+  transition:transform .35s var(--ease)}
+.nav-a:hover,.nav-a.on{color:var(--gold)}
+.nav-a:hover::after,.nav-a.on::after{transform:scaleX(1)}
+.nav-right{display:flex;align-items:center;gap:20px}
+.nav-user{font-size:9px;letter-spacing:.15em;color:var(--stone-d);
+  display:flex;align-items:center;gap:7px}
+.nav-dot{width:5px;height:5px;border-radius:50%;background:#27ae60;
+  animation:dotBeat 2.2s ease-in-out infinite;flex-shrink:0}
+@keyframes dotBeat{0%,100%{opacity:1}50%{opacity:.3}}
+.nav-cta{background:transparent;border:1px solid var(--gold);color:var(--gold);
+  font-family:'Jost',sans-serif;font-size:9px;letter-spacing:.25em;padding:10px 24px;
+  cursor:none;text-transform:uppercase;transition:all .3s var(--ease)}
+.nav-cta:hover{background:var(--gold);color:var(--ink)}
+
+/* ══════════ APP SHELL ══════════ */
+#app{padding-top:var(--nav);min-height:100vh}
+.page{display:none;opacity:0;transition:opacity .55s var(--ease)}
+.page.on{display:block}
+.page.vis{opacity:1}
+
+/* ══════════════════════════════════════════════════════
+   HERO — CINEMATIC OPENING
+══════════════════════════════════════════════════════ */
+#p-home{min-height:100vh;display:none;flex-direction:column}
+#p-home.on{display:flex}
+.hero-cinema{position:relative;height:100vh;min-height:700px;overflow:hidden;
+  display:flex;align-items:center;justify-content:center}
+.hero-vid-wrap{position:absolute;inset:0}
+.hero-vid{width:100%;height:100%;object-fit:cover;opacity:.14;filter:saturate(.35) contrast(1.1)}
+.hero-veil{position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(5,5,10,.15) 0%,rgba(5,5,10,.5) 55%,var(--ink) 100%),
+  radial-gradient(ellipse 70% 80% at 50% 30%,rgba(201,170,113,.06) 0%,transparent 60%)}
+/* Animated Regency arch */
+.arch-wrap{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.h-arch{position:absolute;top:0;left:50%;transform:translateX(-50%);
+  border:1px solid;border-radius:50% 50% 0 0/18% 18% 0 0}
+.h-arch-1{width:min(760px,85vw);height:115%;border-color:rgba(201,170,113,.09);animation:archPulse 8s ease-in-out infinite}
+.h-arch-2{width:min(540px,62vw);height:110%;border-color:rgba(201,170,113,.15);animation:archPulse 8s ease-in-out infinite;animation-delay:-2.6s}
+.h-arch-3{width:min(980px,105vw);height:120%;border-color:rgba(201,170,113,.05);animation:archPulse 8s ease-in-out infinite;animation-delay:-5.2s}
+@keyframes archPulse{0%,100%{opacity:.5;transform:translateX(-50%) scaleY(.99)}50%{opacity:1;transform:translateX(-50%) scaleY(1.01)}}
+.h-hline{position:absolute;top:50%;left:0;right:0;height:1px;pointer-events:none;
+  background:linear-gradient(90deg,transparent 0%,rgba(201,170,113,.12) 20%,rgba(201,170,113,.35) 50%,rgba(201,170,113,.12) 80%,transparent 100%)}
+/* Gold particle dots */
+.particles{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.pt{position:absolute;width:2px;height:2px;background:var(--gold);border-radius:50%;
+  animation:ptFloat linear infinite;opacity:0}
+@keyframes ptFloat{0%{opacity:0;transform:translateY(0) scale(0)}15%{opacity:.6}85%{opacity:.2}100%{opacity:0;transform:translateY(-120px) scale(1.5)}}
+/* Hero content */
+.hero-content{position:relative;z-index:2;text-align:center;padding:0 24px;
+  display:flex;flex-direction:column;align-items:center}
+.hero-eyebrow{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.65em;
+  color:var(--gold);opacity:.8;text-transform:uppercase;margin-bottom:32px;
+  animation:fadeUp 1.1s var(--ease) .3s both}
+.hero-h1{font-family:'Cormorant Garamond',serif;font-size:clamp(62px,11vw,140px);
+  font-weight:300;line-height:.88;letter-spacing:-.025em;margin-bottom:32px;
+  animation:fadeUp 1.1s var(--ease) .5s both}
+.hero-h1 em{font-style:italic;color:var(--gold);display:block}
+.hero-tagline{font-family:'Cinzel',serif;font-size:clamp(8px,1.1vw,11px);
+  letter-spacing:.48em;color:var(--stone-l);text-transform:uppercase;
+  margin-bottom:72px;animation:fadeUp 1.1s var(--ease) .7s both;line-height:1.8}
+/* Stat row */
+.hero-stats{display:flex;gap:clamp(36px,6vw,88px);justify-content:center;flex-wrap:wrap;
+  animation:fadeUp 1.1s var(--ease) .9s both}
+.hs-n{font-family:'Cormorant Garamond',serif;font-size:clamp(38px,5.5vw,58px);
+  font-weight:300;color:var(--gold);line-height:1}
+.hs-l{font-size:9px;letter-spacing:.22em;color:var(--stone-d);text-transform:uppercase;margin-top:8px}
+.hs-sep{width:1px;background:var(--border);align-self:stretch;flex-shrink:0}
+/* Scroll indicator */
+.scroll-ind{position:absolute;bottom:44px;left:50%;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:12px;z-index:3;
+  animation:fadeUp 1.1s var(--ease) 1.2s both}
+.scroll-ind span{font-size:8px;letter-spacing:.35em;color:var(--stone-d);text-transform:uppercase}
+.scroll-needle{width:1px;height:52px;overflow:hidden;position:relative}
+.scroll-needle::after{content:'';position:absolute;inset:0;
+  background:linear-gradient(180deg,transparent 0%,var(--gold) 100%);
+  animation:needleDrop 2.1s ease-in-out infinite}
+@keyframes needleDrop{0%{transform:translateY(-100%)}100%{transform:translateY(100%)}}
+
+/* ─── MODULE CARDS ─── */
+.modules-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;
+  padding:16px max(32px,4vw) 0}
+.mod-card{background:var(--ink-2);padding:44px 36px 40px;cursor:none;
+  position:relative;overflow:hidden;transition:background .4s var(--ease);
+  border:1px solid var(--border)}
+.mod-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);
+  transform:scaleX(0);transform-origin:left;transition:transform .55s var(--ease)}
+.mod-card:hover{background:rgba(201,170,113,.04)}
+.mod-card:hover::before{transform:scaleX(1)}
+.mod-card-num{font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:300;
+  color:var(--gold);opacity:.12;line-height:1;margin-bottom:12px}
+.mod-card-icon{font-size:24px;margin-bottom:18px;display:block;line-height:1}
+.mod-card-label{font-family:'Cinzel',serif;font-size:9px;letter-spacing:.28em;
+  color:var(--gold);text-transform:uppercase;margin-bottom:10px}
+.mod-card-h{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;
+  color:var(--ivory);margin-bottom:12px;line-height:1.2}
+.mod-card-p{font-size:12px;color:var(--stone);line-height:1.75}
+.mod-card-arrow{position:absolute;bottom:24px;right:28px;font-size:20px;
+  color:var(--gold);opacity:0;transform:translateX(-10px);transition:all .35s var(--ease)}
+.mod-card:hover .mod-card-arrow{opacity:1;transform:translateX(0)}
+
+/* ─── STAT STRIP ─── */
+.stat-strip{background:linear-gradient(135deg,rgba(201,170,113,.06) 0%,rgba(201,170,113,.02) 50%,rgba(201,170,113,.05) 100%);
+  border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:60px 0}
+.stat-strip-i{display:flex;justify-content:space-around;flex-wrap:wrap;gap:36px;padding:0 max(32px,5vw)}
+.stat-n{font-family:'Cormorant Garamond',serif;font-size:clamp(40px,5.5vw,62px);
+  font-weight:300;color:var(--gold);line-height:1}
+.stat-l{font-size:9px;letter-spacing:.22em;color:var(--stone-d);text-transform:uppercase;margin-top:8px}
+
+/* ─── MARQUEE ─── */
+.mq-wrap{background:linear-gradient(90deg,var(--gold-d),var(--gold),var(--gold-l),var(--gold));
+  padding:26px 0;overflow:hidden}
+.mq-i{display:flex;white-space:nowrap;animation:mq 25s linear infinite}
+.mq-t{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.48em;
+  color:var(--ink);text-transform:uppercase;padding:0 56px}
+@keyframes mq{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* ── HERITAGE SECTION ── */
+.heritage-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;
+  padding:100px max(32px,6vw)}
+.hg-right{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.hcard{border:1px solid var(--border);padding:28px 24px;
+  background:linear-gradient(145deg,var(--gold-xs),transparent);
+  transition:all .4s var(--ease);cursor:none}
+.hcard:nth-child(even){margin-top:28px}
+.hcard:hover{border-color:var(--border-m);background:rgba(201,170,113,.07)}
+.hcard-icon{font-size:22px;margin-bottom:14px;display:block}
+.hcard-t{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.22em;
+  color:var(--gold);text-transform:uppercase;margin-bottom:8px}
+.hcard-b{font-size:12px;color:var(--stone);line-height:1.7}
+
+/* ── LOCATION PILLS ── */
+.pills{display:flex;flex-wrap:wrap;gap:10px;margin-top:32px}
+.pill{border:1px solid var(--border);padding:8px 18px;font-size:10px;
+  letter-spacing:.14em;color:var(--gold-l);text-transform:uppercase;
+  transition:all .3s;cursor:none}
+.pill:hover{background:rgba(201,170,113,.08);border-color:var(--border-m)}
+
+/* ══════════════════════════════════════════════════════
+   UNIVERSAL SUB-PAGE COMPONENTS
+══════════════════════════════════════════════════════ */
+.sub-hero{height:75vh;min-height:520px;position:relative;
+  display:flex;align-items:flex-end;overflow:hidden}
+.sub-hero-bg{position:absolute;inset:0;background-size:cover;background-position:center}
+.sub-hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.2}
+.sub-hero-grad{position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(5,5,10,.15) 0%,rgba(5,5,10,.5) 55%,var(--ink) 100%),
+  linear-gradient(105deg,rgba(5,5,10,.75) 0%,transparent 55%)}
+.sub-head{position:relative;z-index:2;padding:0 max(40px,6vw) 72px}
+.back-btn{display:inline-flex;align-items:center;gap:10px;font-size:9px;
+  letter-spacing:.3em;color:var(--stone);text-transform:uppercase;
+  cursor:none;margin-bottom:28px;background:none;border:none;font-family:'Jost',sans-serif;
+  transition:color .3s}
+.back-btn:hover{color:var(--gold)}
+.back-btn svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:1.5}
+.sub-tag{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.45em;
+  color:var(--gold);text-transform:uppercase;margin-bottom:20px;
+  display:flex;align-items:center;gap:16px}
+.sub-tag::before{content:'';width:24px;height:1px;background:var(--gold);opacity:.7;flex-shrink:0}
+.sub-h1{font-family:'Cormorant Garamond',serif;font-size:clamp(46px,7.5vw,96px);
+  font-weight:300;line-height:.92;letter-spacing:-.02em;margin-bottom:22px}
+.sub-h1 em{font-style:italic;color:var(--gold)}
+.sub-desc{font-size:14px;color:var(--ivory-3);max-width:560px;line-height:1.85;font-weight:300}
+
+/* ── TAB BAR ── */
+.tabs{background:var(--ink-2);border-bottom:1px solid var(--border);
+  display:flex;overflow-x:auto;scrollbar-width:none;position:sticky;top:var(--nav);z-index:50}
+.tabs::-webkit-scrollbar{display:none}
+.tab-btn{font-family:'Cinzel',serif;font-size:9px;letter-spacing:.24em;color:var(--stone-l);
+  text-transform:uppercase;padding:22px 34px;cursor:none;white-space:nowrap;
+  border:none;border-bottom:2px solid transparent;background:none;font-size:9px;
+  transition:all .3s var(--ease);flex-shrink:0}
+.tab-btn.on,.tab-btn:hover{color:var(--gold)}
+.tab-btn.on{border-bottom-color:var(--gold)}
+
+/* ── PANEL ── */
+.panel{display:none;animation:fadeIn .4s var(--ease)}
+.panel.on{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── SECTION LABELS ── */
+.sec-eyebrow{display:flex;align-items:center;gap:16px;font-family:'Cinzel',serif;
+  font-size:9px;letter-spacing:.48em;color:var(--gold);text-transform:uppercase;margin-bottom:18px}
+.sec-eyebrow::before{content:'';width:28px;height:1px;background:var(--gold);opacity:.7;flex-shrink:0}
+.sec-h2{font-family:'Cormorant Garamond',serif;font-size:clamp(34px,4.8vw,62px);
+  font-weight:300;line-height:1.05}
+.sec-h2 em{font-style:italic;color:var(--gold)}
+.sec-body{font-size:14px;line-height:1.9;color:var(--stone-l);font-weight:300}
+.gold-rule{width:44px;height:1px;background:var(--gold);opacity:.55;margin:36px 0}
+
+/* ── CONTENT GRIDS ── */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:start}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.g2c{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.g3c{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.g4c{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+.bordered{border:1px solid var(--border)}
+
+/* ── CARDS ── */
+.card{border:1px solid var(--border);padding:40px 34px;background:var(--ink-2);
+  position:relative;transition:all .4s var(--ease);overflow:hidden}
+.card::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);
+  transform:scaleX(0);transform-origin:left;transition:transform .5s var(--ease)}
+.card:hover{background:rgba(201,170,113,.04)}
+.card:hover::after{transform:scaleX(1)}
+.card-ico{font-size:26px;margin-bottom:18px;display:block}
+.card-tag{font-family:'Cinzel',serif;font-size:9px;letter-spacing:.25em;
+  color:var(--gold);text-transform:uppercase;margin-bottom:10px}
+.card-h{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:300;
+  color:var(--ivory);margin-bottom:12px;line-height:1.15}
+.card-p{font-size:12px;color:var(--stone);line-height:1.75}
+.card-foot{margin-top:20px;padding-top:16px;border-top:1px solid var(--border-l);
+  font-size:10px;color:var(--gold-d);letter-spacing:.12em}
+
+/* ── BUTTONS ── */
+.btn-g{background:transparent;border:1px solid var(--gold);color:var(--gold);
+  font-family:'Jost',sans-serif;font-size:10px;letter-spacing:.24em;padding:14px 30px;
+  cursor:none;text-transform:uppercase;transition:all .3s var(--ease)}
+.btn-g:hover{background:var(--gold);color:var(--ink)}
+.btn-s{background:var(--gold);border:1px solid var(--gold);color:var(--ink);
+  font-family:'Jost',sans-serif;font-size:10px;letter-spacing:.24em;padding:14px 30px;
+  cursor:none;text-transform:uppercase;transition:all .3s var(--ease)}
+.btn-s:hover{background:var(--gold-l);border-color:var(--gold-l)}
+.btn-row{display:flex;gap:12px;flex-wrap:wrap}
+
+/* ── REVEAL ANIMATION ── */
+.rv{opacity:0;transform:translateY(38px);
+  transition:opacity .85s var(--ease),transform .85s var(--ease)}
+.rv.in{opacity:1;transform:translateY(0)}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.32s}
+.d4{transition-delay:.44s}.d5{transition-delay:.56s}
+
+/* ── PADDING HELPERS ── */
+.px{padding-left:max(40px,6vw);padding-right:max(40px,6vw)}
+.py{padding-top:88px;padding-bottom:88px}
+.py-lg{padding-top:110px;padding-bottom:110px}
+
+/* ══════════════════════════════════════════════════════
+   LEASING MODULE
+══════════════════════════════════════════════════════ */
+.lease-card{background:var(--ink-2);border:1px solid var(--border);overflow:hidden;
+  transition:border-color .4s var(--ease)}
+.lease-card:hover{border-color:var(--border-m)}
+.lc-head{padding:44px 40px 32px;border-bottom:1px solid var(--border-l)}
+.lc-icon{font-size:36px;margin-bottom:20px;display:block}
+.lc-cat{font-family:'Cinzel',serif;font-size:9px;letter-spacing:.3em;
+  color:var(--gold);text-transform:uppercase;margin-bottom:10px}
+.lc-title{font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:300;line-height:1.1;margin-bottom:8px}
+.lc-tagline{font-size:12px;color:var(--stone);font-style:italic}
+.lc-specs{display:flex;gap:32px;padding:24px 40px;border-bottom:1px solid var(--border-l);flex-wrap:wrap}
+.lc-spec-l{font-size:8px;letter-spacing:.2em;color:var(--stone-d);text-transform:uppercase;margin-bottom:4px}
+.lc-spec-v{font-size:12px;color:var(--gold-l);letter-spacing:.06em}
+.lc-pitch{padding:24px 40px;font-size:13px;line-height:1.85;color:var(--stone-l)}
+.lc-adv{list-style:none;padding:0 40px}
+.lc-adv li{font-size:12px;color:var(--stone);padding:9px 0;border-bottom:1px solid var(--border-l);
+  display:flex;align-items:flex-start;gap:12px;line-height:1.5}
+.lc-adv li::before{content:'—';color:var(--gold);opacity:.55;flex-shrink:0;font-size:10px;margin-top:1px}
+.lc-avail{padding:20px 40px;font-size:10px;letter-spacing:.15em;color:var(--gold-d);text-transform:uppercase}
+.lc-cta{padding:0 40px 40px}
+
+/* ══════════════════════════════════════════════════════
+   EVENTS MODULE
+══════════════════════════════════════════════════════ */
+.ev-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
+.ev-card{background:var(--ink-2);padding:52px 44px;position:relative;overflow:hidden;
+  border:1px solid var(--border);transition:background .4s var(--ease);cursor:none}
+.ev-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);
+  transform:scaleX(0);transform-origin:left;transition:transform .55s var(--ease)}
+.ev-card:hover{background:rgba(201,170,113,.04)}
+.ev-card:hover::before{transform:scaleX(1)}
+.ev-icon{font-size:34px;margin-bottom:24px;display:block}
+.ev-title{font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:300;
+  color:var(--ivory);line-height:1.1;margin-bottom:10px}
+.ev-tag{font-family:'Cinzel',serif;font-size:9px;letter-spacing:.25em;
+  color:var(--gold);text-transform:uppercase;margin-bottom:16px}
+.ev-body{font-size:13px;color:var(--stone-l);line-height:1.82}
+.ev-includes{list-style:none;margin-top:20px}
+.ev-includes li{font-size:11px;color:var(--stone);padding:7px 0;
+  border-bottom:1px solid var(--border-l);
+  display:flex;align-items:flex-start;gap:10px;line-height:1.5}
+.ev-includes li::before{content:'◆';color:var(--gold);opacity:.4;flex-shrink:0;font-size:7px;margin-top:4px}
+.ev-meta{margin-top:22px;padding-top:18px;border-top:1px solid var(--border-l);
+  font-size:10px;color:var(--gold-d);letter-spacing:.12em}
+
+/* Highlights */
+.hl-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
+.hl{background:var(--ink-2);padding:48px 44px;position:relative;overflow:hidden;
+  border:1px solid var(--border);transition:background .4s var(--ease);cursor:none}
+.hl:hover{background:rgba(201,170,113,.04)}
+.hl-yr{position:absolute;top:20px;right:28px;font-family:'Cormorant Garamond',serif;
+  font-size:72px;font-weight:300;color:var(--gold);opacity:.1;line-height:1}
+.hl-type{font-family:'Cinzel',serif;font-size:9px;letter-spacing:.28em;
+  color:var(--gold);text-transform:uppercase;margin-bottom:14px}
+.hl-title{font-family:'Cormorant Garamond',serif;font-size:27px;font-weight:300;
+  color:var(--ivory);margin-bottom:14px;line-height:1.2;max-width:85%}
+.hl-desc{font-size:13px;color:var(--stone);line-height:1.78;margin-bottom:16px}
+.hl-imp{font-size:11px;color:var(--gold-d);letter-spacing:.1em}
+.hl-tags{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+.hl-tag{font-size:8px;letter-spacing:.18em;color:var(--stone-d);text-transform:uppercase;
+  border:1px solid var(--border);padding:4px 10px}
+
+/* ══════════════════════════════════════════════════════
+   SPONSORSHIP MODULE
+══════════════════════════════════════════════════════ */
+.tier-wrap{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.tier{background:var(--ink-2);padding:56px 44px;position:relative;
+  border:1px solid var(--border);transition:background .4s var(--ease)}
+.tier.feat{background:rgba(201,170,113,.05)}
+.tier-badge{position:absolute;top:-1px;right:32px;background:var(--gold);
+  color:var(--ink);font-family:'Cinzel',serif;font-size:8px;letter-spacing:.28em;
+  padding:5px 14px;text-transform:uppercase}
+.tier-num{font-family:'Cormorant Garamond',serif;font-size:88px;font-weight:300;
+  color:var(--gold);opacity:.1;line-height:1;margin-bottom:4px}
+.tier-name{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:300;
+  color:var(--ivory);margin-bottom:6px;line-height:1.1}
+.tier-dur{font-size:10px;letter-spacing:.22em;color:var(--stone);text-transform:uppercase;margin-bottom:30px}
+.tier-feat-list{list-style:none}
+.tier-feat-list li{font-size:12px;color:var(--stone-l);padding:9px 0;
+  border-bottom:1px solid var(--border-l);
+  display:flex;align-items:flex-start;gap:10px;line-height:1.5}
+.tier-feat-list li::before{content:'—';color:var(--gold);opacity:.5;flex-shrink:0;font-size:10px}
+.tier-media{margin-top:30px;padding-top:22px;border-top:1px solid var(--border-l)}
+.tier-media-n{font-family:'Cormorant Garamond',serif;font-size:24px;color:var(--gold);font-weight:300;line-height:1}
+.tier-media-l{font-size:9px;letter-spacing:.15em;color:var(--stone-d);text-transform:uppercase;margin-top:5px}
+
+/* Audience data */
+.aud-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:56px}
+.aud-big{background:var(--ink-2);border:1px solid var(--border);padding:36px 32px;
+  transition:background .4s}
+.aud-big:hover{background:rgba(201,170,113,.04)}
+.aud-n{font-family:'Cormorant Garamond',serif;font-size:56px;font-weight:300;color:var(--gold);line-height:1}
+.aud-l{font-size:9px;letter-spacing:.2em;color:var(--stone-d);text-transform:uppercase;margin-top:6px}
+.aud-desc{font-size:12px;color:var(--stone);margin-top:10px;line-height:1.65}
+
+/* Activation examples */
+.ax-list{display:flex;flex-direction:column;gap:16px;margin-top:60px}
+.ax{background:var(--ink-2);padding:48px 48px;display:grid;grid-template-columns:.8fr 2fr;gap:56px;align-items:center;
+  border:1px solid var(--border);transition:background .4s var(--ease)}
+.ax:hover{background:rgba(201,170,113,.04)}
+.ax-num{font-family:'Cormorant Garamond',serif;font-size:72px;color:var(--gold);opacity:.1;line-height:1}
+.ax-brand{font-family:'Cinzel',serif;font-size:9px;letter-spacing:.28em;color:var(--gold);text-transform:uppercase;margin-bottom:8px}
+.ax-format{font-family:'Cormorant Garamond',serif;font-size:24px;color:var(--ivory);font-weight:300;margin-bottom:6px}
+.ax-reach{font-size:10px;color:var(--gold-d);letter-spacing:.1em}
+.ax-desc{font-size:14px;color:var(--stone-l);line-height:1.85;margin-bottom:18px}
+.ax-outcome{background:rgba(201,170,113,.06);border:1px solid var(--border);
+  padding:14px 20px;font-size:12px;color:var(--gold-l)}
+
+/* ══════════════════════════════════════════════════════
+   VENUES MODULE
+══════════════════════════════════════════════════════ */
+.venue-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.venue-card{background:var(--ink-2);padding:56px 48px;cursor:none;
+  border:1px solid var(--border);transition:background .4s var(--ease);position:relative;overflow:hidden}
+.venue-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);
+  transform:scaleX(0);transform-origin:left;transition:transform .5s var(--ease)}
+.venue-card:hover{background:rgba(201,170,113,.04)}
+.venue-card:hover::after{transform:scaleX(1)}
+.venue-icon{font-size:40px;margin-bottom:26px;display:block}
+.venue-name{font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:300;
+  color:var(--ivory);line-height:1.1;margin-bottom:8px}
+.venue-tagline{font-size:12px;color:var(--stone);font-style:italic;margin-bottom:28px}
+.venue-caps{display:flex;gap:28px;margin-bottom:28px}
+.vcap-n{font-family:'Cormorant Garamond',serif;font-size:32px;color:var(--gold);font-weight:300;line-height:1}
+.vcap-l{font-size:8px;letter-spacing:.18em;color:var(--stone-d);text-transform:uppercase;margin-top:3px}
+.venue-feats{list-style:none;margin-bottom:24px}
+.venue-feats li{font-size:12px;color:var(--stone);padding:7px 0;
+  border-bottom:1px solid var(--border-l);
+  display:flex;align-items:flex-start;gap:10px}
+.venue-feats li::before{content:'◆';color:var(--gold);opacity:.35;flex-shrink:0;font-size:7px;margin-top:4px}
+.venue-ideal{font-size:11px;color:var(--stone-d);letter-spacing:.05em;line-height:1.6;margin-bottom:22px}
+.venue-status{display:inline-flex;align-items:center;gap:8px;font-size:9px;
+  letter-spacing:.18em;color:var(--gold-d);text-transform:uppercase;
+  border:1px solid var(--border);padding:7px 16px}
+
+/* ══════════════════════════════════════════════════════
+   ENQUIRY MODULE
+══════════════════════════════════════════════════════ */
+.enq-split{display:grid;grid-template-columns:1fr 1fr;gap:88px;align-items:start}
+.enq-info-addr{font-style:normal;margin-top:40px;font-size:13px;line-height:2.1;color:var(--stone)}
+.enq-info-addr strong{color:var(--gold-l);font-weight:400}
+.next-steps-list{list-style:none;margin-top:28px;counter-reset:ns}
+.ns-item{display:flex;align-items:flex-start;gap:14px;padding:10px 0;
+  border-bottom:1px solid var(--border-l);font-size:12px;color:var(--stone);line-height:1.6}
+.ns-num{counter-increment:ns;width:22px;height:22px;border-radius:50%;
+  background:rgba(201,170,113,.08);border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Cinzel',serif;font-size:9px;color:var(--gold);flex-shrink:0;margin-top:1px}
+.ns-num::before{content:counter(ns)}
+/* Form */
+.fg{margin-bottom:28px}
+.fl{display:block;font-size:9px;letter-spacing:.3em;color:var(--gold);
+  text-transform:uppercase;margin-bottom:11px}
+.fi,.fs,.ft{width:100%;background:transparent;border:none;border-bottom:1px solid var(--border);
+  color:var(--ivory);font-family:'Jost',sans-serif;font-size:14px;
+  padding:11px 0;outline:none;transition:border-color .3s;cursor:none;letter-spacing:.03em}
+.fi::placeholder,.ft::placeholder{color:var(--stone-d)}
+.fi:focus,.fs:focus,.ft:focus{border-bottom-color:var(--gold)}
+.fs{-webkit-appearance:none;appearance:none}
+.fs option{background:var(--ink-3)}
+.ft{resize:none;height:80px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.enq-success{display:none;text-align:center;padding:72px 40px}
+.enq-success-seal{font-family:'Cinzel',serif;font-size:44px;color:var(--gold);opacity:.25;margin-bottom:24px}
+.enq-success-t{font-family:'Cinzel',serif;font-size:15px;letter-spacing:.28em;
+  color:var(--gold);text-transform:uppercase;margin-bottom:10px}
+.enq-success-b{font-size:13px;color:var(--stone-l);line-height:1.85}
+.enq-success-ref{font-size:10px;color:var(--stone-d);margin-top:18px;letter-spacing:.12em}
+
+/* ══════════════════════════════════════════════════════
+   FOOTER
+══════════════════════════════════════════════════════ */
+#footer{background:var(--ink-3);border-top:1px solid var(--border);padding:64px 0 44px;display:none}
+.ft-top{display:flex;justify-content:space-between;align-items:flex-start;
+  padding-bottom:52px;border-bottom:1px solid var(--border);margin-bottom:32px;flex-wrap:wrap;gap:32px}
+.ft-brand{font-family:'Cinzel',serif;font-size:19px;letter-spacing:.32em;color:var(--gold)}
+.ft-brand-sub{font-size:9px;color:var(--stone-d);letter-spacing:.14em;margin-top:7px}
+.ft-links{display:flex;gap:28px;flex-wrap:wrap;list-style:none}
+.ft-links a{font-size:9px;letter-spacing:.18em;color:var(--stone-d);text-decoration:none;
+  text-transform:uppercase;transition:color .3s;cursor:none}
+.ft-links a:hover{color:var(--gold)}
+.ft-btm{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
+.ft-legal{font-size:9px;color:var(--stone-d);letter-spacing:.07em}
+.jwt-ind{display:flex;align-items:center;gap:8px;font-size:9px;color:var(--stone-d);letter-spacing:.1em}
+
+/* ══════════ RESPONSIVE ══════════ */
+@media(max-width:1024px){
+  .modules-grid{grid-template-columns:repeat(2,1fr)}
+  .mod-card{border-right:none;border-bottom:1px solid var(--border)}
+  .g2,.enq-split{grid-template-columns:1fr;gap:52px}
+  .tier-wrap,.venue-grid,.hl-grid,.ev-grid{grid-template-columns:1fr}
+  .ax{grid-template-columns:1fr;gap:20px}
+  .g3,.g4{grid-template-columns:1fr 1fr}
+  .heritage-grid{grid-template-columns:1fr;gap:52px;padding:72px max(24px,4vw)}
+  #nav{padding:0 28px}
+  .nav-links{display:none}
+  .sub-head{padding:0 24px 56px}
+  .px{padding-left:24px;padding-right:24px}
+}
+@media(max-width:640px){
+  .modules-grid{grid-template-columns:1fr}
+  .g2c,.g3c,.g4c,.aud-grid{grid-template-columns:1fr}
+  .form-row{grid-template-columns:1fr}
+  .hero-stats .hs-sep{display:none}
+  .hero-stats{gap:24px}
+  .g3,.g4{grid-template-columns:1fr}
+}
+
+/* ══════ ANIMATIONS ══════ */
+@keyframes fadeUp{from{opacity:0;transform:translateY(36px)}to{opacity:1;transform:translateY(0)}}
+</style>
+</head>
+<body>
+
+<!-- ─── LOADER ─── -->
+<div id="ldr">
+  <div class="ldr-g">
+    <div class="ldr-arch"></div>
+    <div class="ldr-arch"></div>
+    <div class="ldr-arch"></div>
+  </div>
+  <div class="ldr-txt">Burlington Arcade · Est. 1819</div>
+  <div class="ldr-bar"></div>
+</div>
+
+<!-- ─── AUTH (Login + Signup) ─── -->
+<div id="auth-overlay">
+  <div class="auth-box auth-corners">
+    <span class="auth-emblem">B·A</span>
+    <div class="auth-title">Burlington Arcade</div>
+    <div class="auth-sub">Sales Intelligence Portal</div>
+
+    <!-- Tab switcher -->
+    <div class="auth-tabs">
+      <button class="auth-tab on" id="tab-login" onclick="showAuthTab('login')">Sign In</button>
+      <button class="auth-tab" id="tab-signup" onclick="showAuthTab('signup')">Create Account</button>
+    </div>
+
+    <!-- LOGIN PANEL -->
+    <div class="auth-panel on" id="ap-login">
+      <div class="auth-field">
+        <input id="au" class="auth-in" type="text" placeholder="Username or Email" autocomplete="username"/>
+      </div>
+      <div class="auth-field">
+        <input id="ap" class="auth-in" type="password" placeholder="Password" autocomplete="current-password"/>
+      </div>
+      <button class="auth-btn" id="auth-btn" onclick="doLogin()">Enter the Arcade</button>
+      <div class="auth-err" id="auth-err"></div>
+      <div class="auth-hint">
+        Demo access:<br/>
+        <b>salesrep</b> / <b>Burlington@2024</b><br/>
+        <b>admin</b> / <b>Admin@Burlington2024</b>
+      </div>
+    </div>
+
+    <!-- SIGNUP PANEL -->
+    <div class="auth-panel" id="ap-signup">
+      <div class="auth-field">
+        <input id="su-username" class="auth-in" type="text" placeholder="Username" maxlength="50" autocomplete="username"/>
+      </div>
+      <div class="auth-field">
+        <input id="su-email" class="auth-in" type="email" placeholder="Email Address" maxlength="120" autocomplete="email"/>
+      </div>
+      <div class="auth-field">
+        <input id="su-fullname" class="auth-in" type="text" placeholder="Full Name (optional)" maxlength="120" autocomplete="name"/>
+      </div>
+      <div class="auth-field">
+        <input id="su-company" class="auth-in" type="text" placeholder="Company / Brand (optional)" maxlength="120" autocomplete="organization"/>
+      </div>
+      <div class="auth-field">
+        <input id="su-password" class="auth-in" type="password" placeholder="Password (min 8 chars)" maxlength="100" autocomplete="new-password" oninput="checkPasswordStrength()"/>
+      </div>
+      <div class="pwd-strength" id="pwd-strength">
+        <div class="pwd-bar"><div class="pwd-fill" id="pwd-fill"></div></div>
+        <div class="pwd-text" id="pwd-text">Password strength</div>
+      </div>
+      <div class="auth-field">
+        <input id="su-confirm" class="auth-in" type="password" placeholder="Confirm Password" maxlength="100" autocomplete="new-password"/>
+      </div>
+      <button class="auth-btn" id="signup-btn" onclick="doSignup()">Create Account</button>
+      <div class="auth-err" id="signup-err"></div>
+      <div class="auth-success" id="signup-success"></div>
+      <div class="auth-hint" style="font-size:9px">
+        By creating an account you agree to our Terms of Service.<br/>
+        Password requires uppercase, lowercase, number, and special character.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── NAV ─── -->
+<nav id="nav">
+  <a href="#" class="nav-brand" onclick="goPage('home');return false">
+    <div class="nav-brand-main">Burlington Arcade</div>
+    <div class="nav-brand-sub">Est. 1819 · Mayfair, London</div>
+  </a>
+  <ul class="nav-links" id="nav-links">
+    <li><button class="nav-a" data-p="home" onclick="goPage('home')">Overview</button></li>
+    <li><button class="nav-a" data-p="leasing" onclick="goPage('leasing')">Leasing</button></li>
+    <li><button class="nav-a" data-p="events" onclick="goPage('events')">Events</button></li>
+    <li><button class="nav-a" data-p="sponsorship" onclick="goPage('sponsorship')">Partnerships</button></li>
+    <li><button class="nav-a" data-p="venues" onclick="goPage('venues')">Venues</button></li>
+    <li><button class="nav-a" data-p="enquiry" onclick="goPage('enquiry')">Enquire</button></li>
+  </ul>
+  <div class="nav-right">
+    <div class="nav-user" id="nav-user"><div class="nav-dot"></div><span id="nav-uname">—</span></div>
+    <button class="nav-cta" onclick="goPage('enquiry')">Book a Meeting</button>
+  </div>
+</nav>
+
+<!-- ══════════════════════════════════════
+     APP SHELL
+══════════════════════════════════════ -->
+<div id="app">
+
+<!-- ═══════════════ HOME ═══════════════ -->
+<div class="page" id="p-home">
+
+  <!-- CINEMATIC HERO -->
+  <div class="hero-cinema">
+    <div class="hero-vid-wrap">
+      <video class="hero-vid" autoplay muted loop playsinline>
+        <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4"/>
+      </video>
+    </div>
+    <div class="hero-veil"></div>
+    <div class="arch-wrap">
+      <div class="h-arch h-arch-1"></div>
+      <div class="h-arch h-arch-2"></div>
+      <div class="h-arch h-arch-3"></div>
+    </div>
+    <div class="h-hline"></div>
+    <div class="particles" id="particles"></div>
+    <div class="hero-content">
+      <div class="hero-eyebrow">Est. 1819 · 51 Piccadilly · Mayfair · London W1J 0QJ</div>
+      <h1 class="hero-h1">The World's<br/><em>First</em><br/>Shopping Mall</h1>
+      <p class="hero-tagline">Two Centuries Unbroken · 46 Elite Boutiques · The Only Address That Matters</p>
+      <div class="hero-stats">
+        <div><div class="hs-n">205</div><div class="hs-l">Years of Heritage</div></div>
+        <div class="hs-sep"></div>
+        <div><div class="hs-n">4M+</div><div class="hs-l">Annual Visitors</div></div>
+        <div class="hs-sep"></div>
+        <div><div class="hs-n">46</div><div class="hs-l">Luxury Boutiques</div></div>
+        <div class="hs-sep"></div>
+        <div><div class="hs-n">62%</div><div class="hs-l">International HNWI</div></div>
+        <div class="hs-sep"></div>
+        <div><div class="hs-n">#1</div><div class="hs-l">Mayfair Address</div></div>
+      </div>
+    </div>
+    <div class="scroll-ind">
+      <span>Explore</span>
+      <div class="scroll-needle"></div>
+    </div>
+  </div>
+
+  <!-- MODULE NAVIGATION CARDS -->
+  <div class="modules-grid">
+    <div class="mod-card" onclick="goPage('leasing')">
+      <div class="mod-card-num">01</div>
+      <span class="mod-card-icon">💎</span>
+      <div class="mod-card-label">Retail Leasing</div>
+      <div class="mod-card-h">The World's Most Coveted Address</div>
+      <div class="mod-card-p">Four tailored leasing paths: luxury flagship, contemporary retail, food & lifestyle, and pop-up. Each with a distinct pitch, tailored to your brand's ambition.</div>
+      <span class="mod-card-arrow">→</span>
+    </div>
+    <div class="mod-card" onclick="goPage('events')">
+      <div class="mod-card-num">02</div>
+      <span class="mod-card-icon">🥂</span>
+      <div class="mod-card-label">Events & Platform</div>
+      <div class="mod-card-h">Burlington Arcade as Your Stage</div>
+      <div class="mod-card-p">Private arcade buyouts for 500 guests. Window showcase campaigns. Heritage VIP tours led by Head Beadle Mark Lord. Cultural installations with the Royal Academy.</div>
+      <span class="mod-card-arrow">→</span>
+    </div>
+    <div class="mod-card" onclick="goPage('sponsorship')">
+      <div class="mod-card-num">03</div>
+      <span class="mod-card-icon">✦</span>
+      <div class="mod-card-label">Brand Partnerships</div>
+      <div class="mod-card-h">Associate with the Original</div>
+      <div class="mod-card-p">Three sponsorship tiers delivering £120K–£1.2M+ in earned media. 4 million annual visitors. 12M+ social impressions. 205 years of brand authority behind your name.</div>
+      <span class="mod-card-arrow">→</span>
+    </div>
+    <div class="mod-card" onclick="goPage('venues')">
+      <div class="mod-card-num">04</div>
+      <span class="mod-card-icon">🏛️</span>
+      <div class="mod-card-label">Venue Spaces</div>
+      <div class="mod-card-h">Four Extraordinary Spaces</div>
+      <div class="mod-card-p">The Grand Arcade (500 guests), The Victorian Vaults, The Piccadilly Gateway, and Royal Academy cross-programming. No hotel. No conference centre. Just history.</div>
+      <span class="mod-card-arrow">→</span>
+    </div>
+  </div>
+
+  <!-- STAT STRIP -->
+  <div class="stat-strip">
+    <div class="stat-strip-i">
+      <div><div class="stat-n">196 yds</div><div class="stat-l">Arcade Length</div></div>
+      <div><div class="stat-n">£2,400</div><div class="stat-l">Avg Basket Value</div></div>
+      <div><div class="stat-n">38 min</div><div class="stat-l">Avg Dwell Time</div></div>
+      <div><div class="stat-n">67%</div><div class="stat-l">Repeat Visitor Rate</div></div>
+      <div><div class="stat-n">71%</div><div class="stat-l">HNWI Visitors</div></div>
+      <div><div class="stat-n">12M+</div><div class="stat-l">Social Impressions PA</div></div>
+    </div>
+  </div>
+
+  <!-- HERITAGE SECTION -->
+  <div class="heritage-grid">
+    <div>
+      <div class="sec-eyebrow rv">The Burlington Story</div>
+      <h2 class="sec-h2 rv d1" style="font-size:clamp(38px,5.5vw,70px)">Not a mall.<br/><em>An institution.</em></h2>
+      <div class="gold-rule rv d2"></div>
+      <p class="sec-body rv d2">Burlington Arcade did not merely precede the modern shopping mall — it invented it. Opened on 20 March 1819 by Lord George Cavendish, this 196-yard covered arcade in the heart of Mayfair has operated continuously for over two centuries, shaping the very definition of luxury retail.</p>
+      <p class="sec-body rv d3" style="margin-top:20px">Patrolled by the Burlington Beadles — Britain's oldest and smallest police force — the Arcade enforces Regency decorum to this day. No whistling. No hurrying. Only Sir Paul McCartney and a world whistling champion have ever been granted exemptions in 205 years.</p>
+      <div class="pills rv d4">
+        <span class="pill">Bond Street · 2 min</span>
+        <span class="pill">Royal Academy · Adjacent</span>
+        <span class="pill">Savile Row · 3 min</span>
+        <span class="pill">The Ritz · 5 min</span>
+        <span class="pill">Green Park Tube · 4 min</span>
+        <span class="pill">Buckingham Palace · 10 min</span>
+      </div>
+      <div class="btn-row rv d5" style="margin-top:40px">
+        <button class="btn-s" onclick="goPage('leasing')">Explore Leasing</button>
+        <button class="btn-g" onclick="goPage('enquiry')">Request a Meeting</button>
+      </div>
+    </div>
+    <div class="hg-right rv d2">
+      <div class="hcard"><span class="hcard-icon">🎩</span><div class="hcard-t">The Beadles</div><div class="hcard-b">Britain's oldest private police force in ceremonial uniform since 1819. Whistling banned — a Regency rule against pickpocket signals still enforced today.</div></div>
+      <div class="hcard"><span class="hcard-icon">🏛️</span><div class="hcard-t">Regency Architecture</div><div class="hcard-b">Original glass-and-iron roof. Burlington Quarry stone floors. Mullioned shopfronts. An environment that cannot be replicated at any price.</div></div>
+      <div class="hcard"><span class="hcard-icon">👑</span><div class="hcard-t">Royal Provenance</div><div class="hcard-b">Three Royal Warrant holders. HM The Queen shopped here. Marilyn Monroe, Grace Kelly, Sophia Loren, Sir Paul McCartney — all regulars.</div></div>
+      <div class="hcard"><span class="hcard-icon">🎬</span><div class="hcard-t">50+ Productions</div><div class="hcard-b">Skyfall. The Crown. Bridgerton. Downton Abbey. The world's most filmed luxury interior — and London's most recognisable arcade.</div></div>
+    </div>
+  </div>
+
+  <!-- MARQUEE -->
+  <div class="mq-wrap">
+    <div class="mq-i">
+      <span class="mq-t">Manolo Blahnik · Hancocks · Church's · Lalique · N.Peal Cashmere · Ladurée · Bell & Ross · Charbonnel et Walker · Maison Michel · Vintage Watch Co. · Code8 · Kick Game · Sterling Diamond · Baudoin & Lange · Azza Fahmy · Michael Rose · Susannah Lovis ·&nbsp;</span>
+      <span class="mq-t">Manolo Blahnik · Hancocks · Church's · Lalique · N.Peal Cashmere · Ladurée · Bell & Ross · Charbonnel et Walker · Maison Michel · Vintage Watch Co. · Code8 · Kick Game · Sterling Diamond · Baudoin & Lange · Azza Fahmy · Michael Rose · Susannah Lovis ·&nbsp;</span>
+    </div>
+  </div>
+
+  <!-- RETAIL OVERVIEW -->
+  <div class="py-lg px" style="background:var(--ink-2)">
+    <div class="sec-eyebrow rv">Retail Environment</div>
+    <h2 class="sec-h2 rv d1" style="margin-bottom:16px">46 boutiques.<br/><em>Zero compromises.</em></h2>
+    <p class="sec-body rv d2" style="margin-bottom:60px;max-width:560px">Every lease at Burlington Arcade is a curated editorial decision. The mix is deliberate, complementary, and fiercely protected. Joining means belonging to the most exclusive retail address in Britain.</p>
+    <div class="g4c rv d3">
+      <div style="background:var(--ink-2);padding:36px 28px;border:1px solid var(--border)">
+        <div class="card-tag">Fine Jewellery</div>
+        <div class="stat-n" style="font-size:52px">18</div>
+        <div style="font-size:11px;color:var(--stone);margin-top:10px;line-height:1.7">Hancocks · Sterling Diamond · Michael Rose · Azza Fahmy · Susannah Lovis</div>
+      </div>
+      <div style="background:var(--ink-2);padding:36px 28px;border:1px solid var(--border)">
+        <div class="card-tag">Luxury Watches</div>
+        <div class="stat-n" style="font-size:52px">8</div>
+        <div style="font-size:11px;color:var(--stone);margin-top:10px;line-height:1.7">Vintage Watch Co. · Bell & Ross · Diamond Watches · Mevaris</div>
+      </div>
+      <div style="background:var(--ink-2);padding:36px 28px;border:1px solid var(--border)">
+        <div class="card-tag">Fashion & Footwear</div>
+        <div class="stat-n" style="font-size:52px">10</div>
+        <div style="font-size:11px;color:var(--stone);margin-top:10px;line-height:1.7">Manolo Blahnik · Church's · N.Peal · Baudoin & Lange · Kick Game</div>
+      </div>
+      <div style="background:var(--ink-2);padding:36px 28px;border:1px solid var(--border)">
+        <div class="card-tag">Art, Lifestyle & Dining</div>
+        <div class="stat-n" style="font-size:52px">10</div>
+        <div style="font-size:11px;color:var(--stone);margin-top:10px;line-height:1.7">Lalique · Maison Michel · Code8 · Ladurée · Charbonnel et Walker</div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:52px" class="rv d4">
+      <button class="btn-s" onclick="goPage('leasing')" style="padding:16px 52px">Explore Leasing Paths →</button>
+    </div>
+  </div>
+
+</div><!-- /home -->
+
+<!-- ═══════════════ LEASING ═══════════════ -->
+<div class="page" id="p-leasing">
+  <div class="sub-hero" style="background:linear-gradient(145deg,#12100A,#050508)">
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse 65% 80% at 15% 55%,rgba(201,170,113,.07) 0%,transparent 65%)"></div>
+    <div class="sub-hero-grad"></div>
+    <div class="sub-head">
+      <button class="back-btn" onclick="goPage('home')"><svg viewBox="0 0 24 24"><path d="M19 12H5M5 12l7-7M5 12l7 7"/></svg>Overview</button>
+      <div class="sub-tag">Retail Leasing</div>
+      <h1 class="sub-h1">The World's Most<br/><em>Coveted Address.</em></h1>
+      <p class="sub-desc">Four distinct leasing paths — each tailored to a different vision of what Burlington Arcade can do for your brand.</p>
+    </div>
+  </div>
+  <div class="tabs" id="tabs-leasing">
+    <button class="tab-btn on" onclick="switchTab('leasing','luxury',this)">💎 Luxury Flagship</button>
+    <button class="tab-btn" onclick="switchTab('leasing','retail',this)">✦ Contemporary</button>
+    <button class="tab-btn" onclick="switchTab('leasing','fnb',this)">🥐 Food & Lifestyle</button>
+    <button class="tab-btn" onclick="switchTab('leasing','popup',this)">⚡ Pop-Up</button>
+    <button class="tab-btn" onclick="switchTab('leasing','overview',this)">📊 Property Overview</button>
+  </div>
+  <div id="leasing-content"></div>
+</div>
+
+<!-- ═══════════════ EVENTS ═══════════════ -->
+<div class="page" id="p-events">
+  <div class="sub-hero" style="background:linear-gradient(145deg,#0E0D09,#050508)">
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 75% 40%,rgba(201,170,113,.07) 0%,transparent 60%)"></div>
+    <div class="sub-hero-grad"></div>
+    <div class="sub-head">
+      <button class="back-btn" onclick="goPage('home')"><svg viewBox="0 0 24 24"><path d="M19 12H5M5 12l7-7M5 12l7 7"/></svg>Overview</button>
+      <div class="sub-tag">Events & Platform</div>
+      <h1 class="sub-h1">Burlington Arcade<br/>as Your <em>Stage.</em></h1>
+      <p class="sub-desc">205 years of event history. Four distinct formats. One address that makes every moment impossible to forget.</p>
+    </div>
+  </div>
+  <div class="tabs" id="tabs-events">
+    <button class="tab-btn on" onclick="switchTab('events','formats',this)">🥂 Event Formats</button>
+    <button class="tab-btn" onclick="switchTab('events','highlights',this)">✦ Past Highlights</button>
+    <button class="tab-btn" onclick="switchTab('events','book',this)">📅 Book an Event</button>
+  </div>
+  <div id="events-content"></div>
+</div>
+
+<!-- ═══════════════ SPONSORSHIP ═══════════════ -->
+<div class="page" id="p-sponsorship">
+  <div class="sub-hero" style="background:linear-gradient(145deg,#100F0A,#050508)">
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse 55% 75% at 50% 25%,rgba(201,170,113,.09) 0%,transparent 65%)"></div>
+    <div class="sub-hero-grad"></div>
+    <div class="sub-head">
+      <button class="back-btn" onclick="goPage('home')"><svg viewBox="0 0 24 24"><path d="M19 12H5M5 12l7-7M5 12l7 7"/></svg>Overview</button>
+      <div class="sub-tag">Brand Partnerships</div>
+      <h1 class="sub-h1">Associate Your Brand<br/>with <em>the Original.</em></h1>
+      <p class="sub-desc">Three structured tiers delivering media value, physical presence, and editorial alignment with 205 years of cultural authority.</p>
+    </div>
+  </div>
+  <div class="tabs" id="tabs-sponsorship">
+    <button class="tab-btn on" onclick="switchTab('sponsorship','tiers',this)">✦ Partnership Tiers</button>
+    <button class="tab-btn" onclick="switchTab('sponsorship','audience',this)">📊 Audience Data</button>
+    <button class="tab-btn" onclick="switchTab('sponsorship','examples',this)">🎯 Activation Examples</button>
+  </div>
+  <div id="sponsorship-content"></div>
+</div>
+
+<!-- ═══════════════ VENUES ═══════════════ -->
+<div class="page" id="p-venues">
+  <div class="sub-hero" style="background:linear-gradient(145deg,#0A0C12,#050508)">
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse 70% 55% at 25% 65%,rgba(201,170,113,.07) 0%,transparent 65%)"></div>
+    <div class="sub-hero-grad"></div>
+    <div class="sub-head">
+      <button class="back-btn" onclick="goPage('home')"><svg viewBox="0 0 24 24"><path d="M19 12H5M5 12l7-7M5 12l7 7"/></svg>Overview</button>
+      <div class="sub-tag">Venue Spaces</div>
+      <h1 class="sub-h1">Four Extraordinary<br/><em>Spaces.</em></h1>
+      <p class="sub-desc">From a 500-person arcade reception to an intimate Victorian vault dinner — no venue in London carries this provenance.</p>
+    </div>
+  </div>
+  <div id="venues-content"></div>
+</div>
+
+<!-- ═══════════════ ENQUIRY ═══════════════ -->
+<div class="page" id="p-enquiry">
+  <div style="min-height:36vh;background:linear-gradient(180deg,var(--ink-2) 0%,var(--ink) 100%);
+    display:flex;align-items:flex-end;padding:80px max(40px,6vw) 60px">
+    <div>
+      <button class="back-btn" onclick="goPage('home')" style="margin-bottom:24px"><svg viewBox="0 0 24 24"><path d="M19 12H5M5 12l7-7M5 12l7 7"/></svg>Overview</button>
+      <div class="sub-tag">Commercial Enquiries</div>
+      <h1 class="sub-h1" style="font-size:clamp(40px,6vw,80px)">The Right Address<br/><em>Awaits You.</em></h1>
+    </div>
+  </div>
+  <div id="enquiry-content"></div>
+</div>
+
+</div><!-- /app -->
+
+<!-- FOOTER -->
+<footer id="footer">
+  <div class="px">
+    <div class="ft-top">
+      <div><div class="ft-brand">Burlington Arcade</div><div class="ft-brand-sub">Est. 1819 · 51 Piccadilly, Mayfair, London W1J 0QJ</div></div>
+      <ul class="ft-links">
+        <li><a href="#" onclick="goPage('home');return false">Overview</a></li>
+        <li><a href="#" onclick="goPage('leasing');return false">Leasing</a></li>
+        <li><a href="#" onclick="goPage('events');return false">Events</a></li>
+        <li><a href="#" onclick="goPage('sponsorship');return false">Partnerships</a></li>
+        <li><a href="#" onclick="goPage('venues');return false">Venues</a></li>
+        <li><a href="#" onclick="goPage('enquiry');return false">Enquire</a></li>
+      </ul>
+    </div>
+    <div class="ft-btm">
+      <div class="ft-legal">© 2024 Burlington Arcade. Sales Intelligence Portal. Strictly Confidential. Powered by Spring Boot + JWT.</div>
+      <div class="jwt-ind"><div class="nav-dot"></div><span id="jwt-txt">Session Secured · JWT Active</span></div>
+    </div>
+  </div>
+</footer>
+
+<!-- Cursors -->
+<div id="cur"></div><div id="cur-r"></div>
+
+<script>
+/* ═══════════════════════════════════════════════════════════
+   BURLINGTON ARCADE — COMPLETE SALES INTELLIGENCE PORTAL
+   Phase 1 + Phase 2 Unified · JWT Auth · Spring Boot API
+═══════════════════════════════════════════════════════════ */
+
+// ── Global State ──
+let token=null, rToken=null, authUser=null, authRole=null;
+let curPage='home';
+const builtPages={};
+
+// ── Cursor ──
+const cur=document.getElementById('cur'), curR=document.getElementById('cur-r');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px'});
+(function raf(){rx+=(mx-rx)*.1;ry+=(my-ry)*.1;curR.style.left=rx+'px';curR.style.top=ry+'px';requestAnimationFrame(raf)})();
+document.addEventListener('mouseover',e=>{if(e.target.matches('a,button,input,select,textarea,[onclick],.mod-card,.card,.hcard,.ev-card,.hl,.tier,.venue-card,.ax,.lc-cat,.pill'))document.body.classList.add('hov')});
+document.addEventListener('mouseout',e=>{if(e.target.matches('a,button,input,select,textarea,[onclick],.mod-card,.card,.hcard,.ev-card,.hl,.tier,.venue-card,.ax,.lc-cat,.pill'))document.body.classList.remove('hov')});
+
+// ── Particles (hero) ──
+function spawnParticles(){
+  const c=document.getElementById('particles');
+  if(!c)return;
+  for(let i=0;i<20;i++){
+    const d=document.createElement('div');
+    d.className='pt';
+    d.style.cssText=`left:${Math.random()*100}%;top:${60+Math.random()*35}%;animation-duration:${4+Math.random()*6}s;animation-delay:${Math.random()*8}s;`;
+    c.appendChild(d);
+  }
+}
+
+// ── Loader ──
+window.addEventListener('load',()=>{ setTimeout(()=>{const l=document.getElementById('ldr');l.style.opacity='0';setTimeout(()=>l.style.display='none',1000)},1800) });
+
+// ── Auth: tab switcher ──
+function showAuthTab(which){
+  document.getElementById('tab-login').classList.toggle('on',which==='login');
+  document.getElementById('tab-signup').classList.toggle('on',which==='signup');
+  document.getElementById('ap-login').classList.toggle('on',which==='login');
+  document.getElementById('ap-signup').classList.toggle('on',which==='signup');
+  // clear error states
+  document.getElementById('auth-err').style.display='none';
+  document.getElementById('signup-err').style.display='none';
+  document.getElementById('signup-success').style.display='none';
+}
+
+// ── Login: enter-key submit ──
+['ap','au'].forEach(id=>document.getElementById(id).addEventListener('keydown',e=>{if(e.key==='Enter')doLogin()}));
+['su-username','su-email','su-fullname','su-company','su-password','su-confirm'].forEach(id=>{
+  const el=document.getElementById(id);
+  if(el)el.addEventListener('keydown',e=>{if(e.key==='Enter')doSignup()});
+});
+
+async function doLogin(){
+  const u=document.getElementById('au').value.trim();
+  const p=document.getElementById('ap').value.trim();
+  const err=document.getElementById('auth-err'), btn=document.getElementById('auth-btn');
+  err.style.display='none';
+  if(!u||!p){err.textContent='Please enter both username/email and password.';err.style.display='block';return}
+  btn.textContent='Verifying…';btn.disabled=true;
+  try{
+    const res=await fetch('/api/auth/login',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({usernameOrEmail:u,password:p})});
+    const d=await res.json();
+    if(res.ok){
+      token=d.accessToken;rToken=d.refreshToken;
+      authUser=d.username;authRole=d.role;
+      onAuth();scheduleRefresh(d.expiresIn||3600000);
+    } else {
+      err.textContent=d.message||'Invalid credentials.';err.style.display='block';
+    }
+  }catch(e){
+    // Demo fallback — works without backend
+    token='demo';authUser=u;authRole='SALES';onAuth();
+    document.getElementById('jwt-txt').textContent='Demo Mode — JWT Ready';
+  }
+  btn.textContent='Enter the Arcade';btn.disabled=false;
+}
+
+async function doSignup(){
+  const username=document.getElementById('su-username').value.trim();
+  const email=document.getElementById('su-email').value.trim();
+  const fullName=document.getElementById('su-fullname').value.trim();
+  const company=document.getElementById('su-company').value.trim();
+  const password=document.getElementById('su-password').value;
+  const confirm=document.getElementById('su-confirm').value;
+  const err=document.getElementById('signup-err');
+  const ok=document.getElementById('signup-success');
+  const btn=document.getElementById('signup-btn');
+  err.style.display='none';ok.style.display='none';
+
+  // Client-side validation
+  if(!username||!email||!password||!confirm){
+    err.textContent='Username, email, and password are required.';err.style.display='block';return;
+  }
+  if(!/^[a-zA-Z0-9_.-]+$/.test(username)){
+    err.textContent='Username can only contain letters, numbers, dots, underscores, hyphens.';err.style.display='block';return;
+  }
+  if(username.length<3||username.length>50){
+    err.textContent='Username must be 3-50 characters.';err.style.display='block';return;
+  }
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
+    err.textContent='Please enter a valid email address.';err.style.display='block';return;
+  }
+  if(password.length<8){
+    err.textContent='Password must be at least 8 characters.';err.style.display='block';return;
+  }
+  if(!/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#^()_+=\-])/.test(password)){
+    err.textContent='Password must contain uppercase, lowercase, number, and special character.';err.style.display='block';return;
+  }
+  if(password!==confirm){
+    err.textContent='Passwords do not match.';err.style.display='block';return;
+  }
+
+  btn.textContent='Creating account…';btn.disabled=true;
+  try{
+    const res=await fetch('/api/auth/signup',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({username,email,password,fullName,company})});
+    const d=await res.json();
+    if(res.ok){
+      ok.textContent='✦ Account created successfully. Please sign in below.';
+      ok.style.display='block';
+      // Pre-fill login form
+      document.getElementById('au').value=username;
+      // Reset signup form
+      ['su-username','su-email','su-fullname','su-company','su-password','su-confirm'].forEach(id=>document.getElementById(id).value='');
+      document.getElementById('pwd-strength').classList.remove('on');
+      // Auto-switch to login after 1.6s
+      setTimeout(()=>{showAuthTab('login');document.getElementById('ap').focus()},1600);
+    } else {
+      err.textContent=d.message||'Could not create account.';err.style.display='block';
+    }
+  }catch(e){
+    err.textContent='Backend unavailable. Please try again later.';err.style.display='block';
+  }
+  btn.textContent='Create Account';btn.disabled=false;
+}
+
+function checkPasswordStrength(){
+  const p=document.getElementById('su-password').value;
+  const wrap=document.getElementById('pwd-strength');
+  const fill=document.getElementById('pwd-fill');
+  const txt=document.getElementById('pwd-text');
+  if(!p){wrap.classList.remove('on');return}
+  wrap.classList.add('on');
+  let s=0;
+  if(p.length>=8)s++;
+  if(/[a-z]/.test(p)&&/[A-Z]/.test(p))s++;
+  if(/\d/.test(p))s++;
+  if(/[@$!%*?&#^()_+=\-]/.test(p)&&p.length>=12)s++;
+  fill.className='pwd-fill s'+Math.max(s,1);
+  txt.className='pwd-text s'+Math.max(s,1);
+  txt.textContent=['Too weak','Weak','Fair','Strong','Excellent'][s];
+}
+
+function onAuth(){
+  const ov=document.getElementById('auth-overlay');
+  ov.style.opacity='0';setTimeout(()=>ov.style.display='none',700);
+  document.getElementById('nav-uname').textContent=authUser.toUpperCase();
+  document.getElementById('footer').style.display='block';
+  spawnParticles();
+  goPage('home');
+}
+
+function scheduleRefresh(ms){
+  setTimeout(async()=>{
+    try{const res=await fetch('/api/auth/refresh',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({refreshToken:rToken})});const d=await res.json();if(res.ok){token=d.accessToken;scheduleRefresh(d.expiresIn||3600000)}}catch(e){}
+  },Math.max(ms-60000,30000));
+}
+
+async function api(path){
+  if(token==='demo')return null;
+  try{const r=await fetch(path,{headers:{'Authorization':'Bearer '+token}});return r.ok?r.json():null}catch(e){return null}
+}
+
+// ── Navigation ──
+function goPage(name){
+  curPage=name;
+  document.querySelectorAll('.page').forEach(p=>{p.classList.remove('on','vis')});
+  document.querySelectorAll('.nav-a').forEach(a=>{a.classList.toggle('on',a.dataset.p===name)});
+  const pg=document.getElementById('p-'+name);
+  if(!pg)return;
+  pg.classList.add('on');
+  window.scrollTo({top:0,behavior:'smooth'});
+  requestAnimationFrame(()=>requestAnimationFrame(()=>pg.classList.add('vis')));
+  // Build if needed
+  const builders={leasing:buildLeasing,events:buildEvents,sponsorship:buildSponsorship,venues:buildVenues,enquiry:buildEnquiry};
+  if(builders[name]&&!builtPages[name]){builders[name]();builtPages[name]=true}
+  setTimeout(doReveal,200);
+}
+
+function switchTab(module,tabId,el){
+  document.querySelectorAll(`#tabs-${module} .tab-btn`).forEach(t=>t.classList.remove('on'));
+  el.classList.add('on');
+  document.querySelectorAll(`#${module}-content .panel`).forEach(p=>p.classList.remove('on'));
+  const t=document.getElementById(`pnl-${module}-${tabId}`);
+  if(t){t.classList.add('on');doReveal()}
+}
+
+// ── Reveal ──
+function doReveal(){
+  const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target)}})},{threshold:.1});
+  document.querySelectorAll('.rv:not(.in)').forEach(el=>obs.observe(el));
+}
+
+/* ═══════════════════════════════════════════════════════
+   BUILD: LEASING MODULE
+═══════════════════════════════════════════════════════ */
+const LEASING=[
+  {id:'luxury',icon:'💎',cat:'Luxury Flagship',title:'The Definitive London Address',tagline:'For global maisons who demand the best',
+   size:'400 – 1,200 sq ft',term:'7 – 15 years',position:'Ground floor, Piccadilly frontage',tenants:'Hancocks · Manolo Blahnik · Lalique · Bell & Ross',
+   pitch:'A flagship on Burlington Arcade is not a retail unit. It is a declaration. In 205 years, only the world\'s finest houses have earned this address. Footfall here is prequalified — every visitor arrives with intent and the means to act on it.',
+   adv:['Original Regency shopfront — an architectural credential no build-out can replicate','4M annual visitors, 62% international HNWI from USA, Gulf, Europe, Asia-Pacific','Beadle escort service creates an unrivalled client arrival ceremony','Adjacent to Royal Academy of Arts — culture, commerce, and credibility unified','Press & editorial amplification on every new opening, guaranteed'],
+   avail:'By invitation — enquire for current opportunities'},
+  {id:'retail',icon:'✦',cat:'Contemporary Luxury',title:'For the Next Generation of Luxury',tagline:'Bold voices that respect and redefine heritage',
+   size:'200 – 600 sq ft',term:'3 – 10 years',position:'Ground & first floor',tenants:'N.Peal Cashmere · Church\'s · Code8 · Kick Game',
+   pitch:'Burlington Arcade actively curates voices that respect the heritage whilst redefining it. This tier offers the full credibility of the arcade\'s 205-year address with the commercial flexibility needed to grow alongside your brand.',
+   adv:['Immediate association with 205 years of editorial and cultural excellence','Access to the Arcade\'s global press, PR, and media amplification network','Flexible fit-out within Regency architectural envelope guidelines','Cross-referral opportunities from established luxury neighbours','VIP client hosting in the Arcade\'s private and underground spaces'],
+   avail:'2 units available Q2 2025 — enquire now'},
+  {id:'fnb',icon:'🥐',cat:'Food & Lifestyle',title:'Dining as Destination',tagline:'Not an afterthought — a pilgrimage',
+   size:'150 – 400 sq ft',term:'3 – 7 years',position:'Ground floor, arcade-facing',tenants:'Ladurée · Noxy Brothers · Charbonnel et Walker',
+   pitch:'The Arcade\'s food and lifestyle offer is intentionally curated and severely limited — meaning each F&B presence becomes a genuine destination within the destination. Ladurée at Burlington Arcade is not a branch. It is a pilgrimage. That is what we offer you.',
+   adv:['Captive audience of the highest-spending shoppers in the whole of London','Unique morning licence — the arcade opens at 8am weekdays before Bond Street','Corporate gifting, private commissions, and seasonal bespoke programmes','Seasonal partnership with the Arcade\'s full marketing calendar','No delivery apps — the in-arcade experience is protected as an exclusive'],
+   avail:'1 unit under active consideration — enquire for details'},
+  {id:'popup',icon:'⚡',cat:'Pop-Up & Activation',title:'Test. Launch. Amplify.',tagline:'The world\'s most prestigious short-term space',
+   size:'80 – 300 sq ft',term:'1 week – 12 months',position:'Flexible — multiple locations within the arcade',tenants:'Mr Porter Private Appointment · Seasonal brand activations',
+   pitch:'The world\'s most prestigious test-and-learn environment. Launch a new product, enter the UK market, or create an unmissable cultural moment — with the Arcade\'s 205-year authority, 4M annual visitors, and global press reach behind every day you trade.',
+   adv:['The fastest path to a Mayfair presence with minimal commitment or risk','Full PR and social amplification by the Arcade team included in every package','Access to the Arcade\'s established HNWI client database and mailing list','Option to convert to a permanent lease if mutual commercial fit is confirmed','Fully flexible build-out — bespoke installation, branded kiosk, or gallery format'],
+   avail:'Rolling availability — 4–6 week lead time from enquiry to open'}
+];
+
+function buildLeasing(){
+  const c=document.getElementById('leasing-content');
+  let html='';
+  LEASING.forEach((d,i)=>{
+    html+=`
+    <div class="panel${i===0?' on':''}" id="pnl-leasing-${d.id}">
+      <div class="py-lg px">
+        <div class="g2">
+          <div>
+            <div class="sec-eyebrow rv">${d.cat}</div>
+            <h2 class="sec-h2 rv d1" style="font-size:clamp(36px,4.5vw,60px)">${d.icon} <em>${d.tagline}</em></h2>
+            <div class="gold-rule rv d2"></div>
+            <p class="sec-body rv d2">${d.pitch}</p>
+            <div class="btn-row rv d3" style="margin-top:40px">
+              <button class="btn-s" onclick="goPage('enquiry')">Enquire About This Space</button>
+              <button class="btn-g" onclick="goPage('enquiry')">Request Availability</button>
+            </div>
+          </div>
+          <div class="lease-card rv d2">
+            <div class="lc-head">
+              <span class="lc-icon">${d.icon}</span>
+              <div class="lc-cat">${d.cat}</div>
+              <div class="lc-title">${d.title}</div>
+              <div class="lc-tagline">${d.tenants}</div>
+            </div>
+            <div class="lc-specs">
+              <div><div class="lc-spec-l">Size</div><div class="lc-spec-v">${d.size}</div></div>
+              <div><div class="lc-spec-l">Term</div><div class="lc-spec-v">${d.term}</div></div>
+              <div><div class="lc-spec-l">Position</div><div class="lc-spec-v">${d.position}</div></div>
+            </div>
+            <ul class="lc-adv">${d.adv.map(a=>`<li>${a}</li>`).join('')}</ul>
+            <div class="lc-avail">${d.avail}</div>
+            <div class="lc-cta"><button class="btn-s" onclick="goPage('enquiry')" style="width:100%;padding:16px">Begin the Conversation →</button></div>
+          </div>
+        </div>
+      </div>
+    </div>`;
+  });
+  // Overview panel
+  html+=`
+  <div class="panel" id="pnl-leasing-overview">
+    <div class="py-lg px">
+      <div class="sec-eyebrow rv">Property Overview</div>
+      <h2 class="sec-h2 rv d1" style="margin-bottom:56px">Burlington Arcade<br/><em>by the Numbers</em></h2>
+      <div class="stat-strip" style="margin:0 0 72px"><div class="stat-strip-i" style="padding:0">
+        <div><div class="stat-n">4M+</div><div class="stat-l">Annual Visitors</div></div>
+        <div><div class="stat-n">£2,400</div><div class="stat-l">Avg Basket Value</div></div>
+        <div><div class="stat-n">62%</div><div class="stat-l">International HNWI</div></div>
+        <div><div class="stat-n">71%</div><div class="stat-l">HNWI Visitors</div></div>
+        <div><div class="stat-n">38 min</div><div class="stat-l">Avg Dwell Time</div></div>
+        <div><div class="stat-n">67%</div><div class="stat-l">Repeat Visitor Rate</div></div>
+      </div></div>
+      <div class="g3 rv d2">
+        <div class="card"><span class="card-ico">📍</span><div class="card-tag">Location</div><div class="card-h">Heart of Mayfair</div><div class="card-p">Bond Street 2 min · Royal Academy adjacent · Savile Row 3 min · The Ritz 5 min · Piccadilly Circus 8 min · Green Park Tube 4 min.</div></div>
+        <div class="card"><span class="card-ico">📢</span><div class="card-tag">Media Value</div><div class="card-h">Global Reach</div><div class="card-p">12M+ annual social impressions · 500+ press mentions per year · 50+ film and TV production credits · 4 Vogue UK features annually · 3 Royal Warrant holders in-arcade.</div></div>
+        <div class="card"><span class="card-ico">👑</span><div class="card-tag">Provenance</div><div class="card-h">205 Years</div><div class="card-p">World's first shopping mall. Notable clients: HM The Queen, Marilyn Monroe, Grace Kelly, Sophia Loren, Sir Paul McCartney. Featured: Skyfall, The Crown, Bridgerton.</div></div>
+      </div>
+    </div>
+  </div>`;
+  c.innerHTML=html;
+}
+
+/* ═══════════════════════════════════════════════════════
+   BUILD: EVENTS MODULE
+═══════════════════════════════════════════════════════ */
+const EVENTS_DATA=[
+  {id:'buyout',icon:'🥂',title:'Full Arcade Buyout',tag:'The Grand Experience',price:'POA',lead:'8 weeks',cap:'500 reception · 120 seated',
+   body:'Exclusive use of all 196 yards — from the Piccadilly gates to Burlington Gardens — for a private evening. The Burlington Beadles manage your guest arrival in full ceremonial uniform. A setting no hotel or conference venue can replicate at any price.',
+   includes:['All 46 shopfronts available for bespoke brand installation','Beadle ceremonial greeting and escort at the Piccadilly entrance','Exclusive access to the Victorian underground passageways','Dedicated load-in from Burlington Gardens end of arcade','Integrated PA capability within the Regency acoustic environment','Full security and guest management by the Arcade\'s own team']},
+  {id:'windows',icon:'🖼️',title:'Window Showcase Campaign',tag:'Brand Storytelling at Scale',price:'From £28,000/week',lead:'4 weeks',cap:'46 windows · 11,000+ daily footfall',
+   body:'Transform some or all of the Arcade\'s 46 ground-floor windows into a curated brand narrative. Each window is a frame. The arcade is your gallery. 11,000+ daily pedestrians — and every one of them is exactly who you want to reach.',
+   includes:['Opening night press preview event with media attendance','Behind-the-glass installation and bespoke lighting rig','Social media content creation by the Arcade\'s in-house team','QR-linked digital storytelling panels at each window','Press outreach to Vogue, Tatler, Harper\'s Bazaar, The Times']},
+  {id:'heritage',icon:'👑',title:'Heritage VIP Tour',tag:'The Unmissable Client Experience',price:'From £3,500',lead:'2 weeks',cap:'Up to 30 guests · 75 minutes',
+   body:'Hosted personally by Head Beadle Mark Lord — 18 years at Burlington Arcade. Access Victorian underground passageways, original 1819 basement architecture, and stories no guidebook contains. The ultimate client entertainment in London.',
+   includes:['Private access to Victorian underground passageways (not open to the public)','Champagne reception in the arcade upon conclusion of tour','Framed archival print of the 1819 Burlington Arcade blueprint','Exclusive private shopping hour with preferred boutiques','Personal Certificate of Heritage Experience from Head Beadle Mark Lord']},
+  {id:'installation',icon:'🎭',title:'Cultural Installation',tag:'Art × Commerce × Heritage',price:'POA',lead:'12 weeks',cap:'Full arcade · select dates',
+   body:'Partner with the Royal Academy of Arts — directly adjacent to the Burlington Gardens entrance — for cross-programmed cultural moments. Art, light, sound, and live performance, all within Regency decorum. £250,000+ earned media per major installation.',
+   includes:['Sculpture and art installation throughout the arcade concourse','Projected light installation in the arcade after trading hours','Photography exhibition across the full window programme','Live music — strings, harp, chamber within Regency decorum','Cross-programming with Royal Academy of Arts audience and press']}
+];
+
+const HIGHLIGHTS=[
+  {title:"Queen's Platinum Jubilee Showcase",year:2022,type:'Royal Celebration',body:'A curated jewellery showcase celebrating 70 years of the late Queen\'s passion for gemstones. All 46 windows dressed in royal blue and gold. Every major UK media title covered the opening.',impressions:'8.2M media impressions',tags:['Royal','Jewellery','Heritage']},
+  {title:'Burlington Arcade 200th Anniversary',year:2019,type:'Heritage Milestone',body:'A year-long programme marking two centuries of unbroken trading. Archival exhibitions, limited-edition collaborations with existing tenants, and a royal ceremony attended by the press.',impressions:'11M media impressions',tags:['Anniversary','Heritage','Cultural']},
+  {title:'The Jaguar Heist Re-enactment',year:2018,type:'Brand Activation',body:'A theatrical reimagining of the 1964 heist — when masked men drove a Jaguar through the gates — to launch a luxury watchmaker\'s Daring campaign. Covered by international broadcast media.',impressions:'5.4M global impressions',tags:['Watches','PR Stunt','International']},
+  {title:'Netflix Period Drama Production',year:2023,type:'Film & Television',body:'Featured as primary exterior and interior location in a major Netflix period drama. Burlington Arcade holds 50+ total film and television production credits — more than any other luxury shopping destination in London.',impressions:'Ongoing — 50+ credits',tags:['Film','Television','Netflix']}
+];
+
+function buildEvents(){
+  const c=document.getElementById('events-content');
+  // Formats panel
+  let fmts=`<div class="panel on" id="pnl-events-formats"><div class="py-lg px">
+    <div class="sec-eyebrow rv">Event Formats</div>
+    <h2 class="sec-h2 rv d1" style="margin-bottom:56px">Four ways to make<br/><em>history here.</em></h2>
+    <div class="ev-grid rv d2">`;
+  EVENTS_DATA.forEach(e=>{
+    fmts+=`<div class="ev-card"><span class="ev-icon">${e.icon}</span>
+      <div class="ev-tag">${e.tag} · ${e.price} · ${e.lead} lead</div>
+      <div class="ev-title">${e.title}</div>
+      <div class="ev-body">${e.body}</div>
+      <ul class="ev-includes">${e.includes.map(i=>`<li>${i}</li>`).join('')}</ul>
+      <div class="ev-meta">Capacity: ${e.cap}</div>
+      <button class="btn-g" onclick="switchTab('events','book',document.querySelector('#tabs-events .tab-btn:nth-child(3)'))" style="margin-top:24px">Enquire →</button>
+    </div>`;
+  });
+  fmts+=`</div></div></div>`;
+
+  // Highlights panel
+  let hls=`<div class="panel" id="pnl-events-highlights"><div class="py-lg px">
+    <div class="sec-eyebrow rv">Past Highlights</div>
+    <h2 class="sec-h2 rv d1" style="margin-bottom:56px">205 years of<br/><em>unmissable moments.</em></h2>
+    <div class="hl-grid rv d2">`;
+  HIGHLIGHTS.forEach(h=>{
+    hls+=`<div class="hl"><div class="hl-yr">${h.year}</div>
+      <div class="hl-type">${h.type}</div>
+      <div class="hl-title">${h.title}</div>
+      <div class="hl-desc">${h.body}</div>
+      <div class="hl-imp">✦ ${h.impressions}</div>
+      <div class="hl-tags">${h.tags.map(t=>`<span class="hl-tag">${t}</span>`).join('')}</div>
+    </div>`;
+  });
+  hls+=`</div></div></div>`;
+
+  // Booking panel
+  const book=`<div class="panel" id="pnl-events-book"><div class="py-lg px">
+    <div class="g2">
+      <div>
+        <div class="sec-eyebrow rv">Book an Event</div>
+        <h2 class="sec-h2 rv d1" style="font-size:clamp(36px,4.5vw,58px)">Reserve your<br/><em>evening.</em></h2>
+        <div class="gold-rule rv d2"></div>
+        <p class="sec-body rv d2">Our events team manages every detail from concept to delivery. All enquiries treated with complete discretion. Response within 4 business hours.</p>
+        <div class="g2c rv d3" style="margin-top:40px;grid-template-columns:1fr 1fr">
+          ${EVENTS_DATA.map(e=>`<div style="background:var(--ink-2);padding:28px 24px;cursor:pointer;border:1px solid var(--border)" onclick="document.getElementById('ev-type').value='${e.id}'"><span style="font-size:22px">${e.icon}</span><div style="font-family:Cinzel,serif;font-size:9px;letter-spacing:.22em;color:var(--gold);text-transform:uppercase;margin:10px 0 4px">${e.title}</div><div style="font-size:10px;color:var(--stone-d)">${e.price}</div></div>`).join('')}
+        </div>
+      </div>
+      <div id="ev-form" class="rv d2">
+        <div class="fg"><label class="fl">Full Name</label><input id="ev-name" class="fi" placeholder="Your name"/></div>
+        <div class="fg"><label class="fl">Company / Brand</label><input id="ev-company" class="fi" placeholder="Your organisation"/></div>
+        <div class="fg"><label class="fl">Email</label><input id="ev-email" class="fi" type="email" placeholder="your@email.com"/></div>
+        <div class="fg"><label class="fl">Event Format</label>
+          <select id="ev-type" class="fs">
+            <option value="">Select event format</option>
+            ${EVENTS_DATA.map(e=>`<option value="${e.id}">${e.title}</option>`).join('')}
+          </select>
+        </div>
+        <div class="fg"><label class="fl">Preferred Date / Season</label><input id="ev-date" class="fi" placeholder="e.g. November 2025, Christmas season, flexible"/></div>
+        <div class="fg"><label class="fl">Brief</label><textarea id="ev-msg" class="ft" placeholder="Tell us about your event, guest profile, and any specific requirements…"></textarea></div>
+        <button class="btn-s" onclick="submitEvt()" style="width:100%;padding:18px">Submit Event Enquiry →</button>
+        <div class="enq-success" id="ev-success">
+          <div class="enq-success-seal">✦</div>
+          <div class="enq-success-t">Enquiry Received</div>
+          <div class="enq-success-b">Our events team will be in touch within 4 business hours.</div>
+        </div>
+      </div>
+    </div>
+  </div></div>`;
+
+  c.innerHTML=fmts+hls+book;
+}
+
+async function submitEvt(){
+  const name=document.getElementById('ev-name').value.trim();
+  const email=document.getElementById('ev-email').value.trim();
+  if(!name||!email){alert('Please enter your name and email.');return}
+  try{await fetch('/api/sales/enquiry',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+token},body:JSON.stringify({name,company:document.getElementById('ev-company').value,email,type:document.getElementById('ev-type').value,message:document.getElementById('ev-msg').value})})}catch(e){}
+  document.querySelectorAll('#ev-form .fg,#ev-form button.btn-s').forEach(el=>el.style.display='none');
+  document.getElementById('ev-success').style.display='block';
+}
+
+/* ═══════════════════════════════════════════════════════
+   BUILD: SPONSORSHIP MODULE
+═══════════════════════════════════════════════════════ */
+const TIERS=[
+  {num:'01',name:'Event Partner',dur:'Single event',feat:false,
+   assets:['Full arcade exclusivity for one private evening','Bespoke guest experience and welcome design','Catering and entertainment rights throughout','Brand integration across all event communications','Beadle ceremonial escort for all arriving guests','Post-event press release and social media coverage','Photography and videography rights — all content owned by brand'],
+   media:'£120,000+',reach:'Up to 500 guests + post-event media coverage'},
+  {num:'02',name:'Seasonal Sponsor',dur:'3 months',feat:false,
+   assets:['Themed arcade dressing throughout the full season','Brand presence at all 8 primary visitor touchpoints','Joint press release and social media campaign','1 exclusive private evening event included','Co-branded seasonal gift guide — digital and print distribution','Access to the Arcade\'s HNWI client database mailing list','Press preview event with guaranteed media attendance'],
+   media:'£380,000+',reach:'1M+ visitors during the campaign period'},
+  {num:'03',name:'Presenting Partner',dur:'Annual',feat:true,
+   assets:['Exclusive naming rights to the annual signature campaign','Beadle uniform co-branding throughout campaign duration','All 46 window displays for your brand narrative','4 exclusive private evening events per year','Full digital and press co-marketing programme','First right of refusal on all new leasing opportunities','Cross-programming with the Royal Academy of Arts','Annual heritage tour for 30 of your top clients','Dedicated editorial feature in Vogue UK partnership issue','Year-round brand presence on arcade.com and all social channels'],
+   media:'£1.2M+',reach:'4M annual visitors + 12M social impressions'}
+];
+
+const AUD_DATA=[
+  {n:'71%',l:'HNWI Visitors',d:'High and ultra-high net worth individuals classified by wealth screening'},
+  {n:'£2,400',l:'Avg Basket Value',d:'Average transaction across all 46 boutiques per visit'},
+  {n:'62%',l:'International',d:'Visitors from USA, Gulf, France, Italy, Japan, China, Hong Kong'},
+  {n:'67%',l:'Return Rate',d:'Visitors who return to Burlington Arcade within the same calendar year'},
+  {n:'38 min',l:'Dwell Time',d:'Average time spent in the arcade — 3.4× the London high street average'},
+  {n:'12M+',l:'Social Impressions',d:'Annual earned social media impressions across all organic channels'}
+];
+
+const EXAMPLES=[
+  {brand:'Swiss Watch House',format:'Window Showcase + Evening Buyout',desc:'All 46 windows transformed into a living timeline of 200 years of watchmaking. A private evening for 300 collectors curated personally by Head Beadle Mark Lord. Covered by WatchPro, Hodinkee, and the Financial Times Weekend Magazine.',reach:'4.2M impressions',outcome:'Sold out £24,000 limited edition within 48 hours of the event'},
+  {brand:'French Perfume House',format:'Seasonal Presenting Partner',desc:'The arcade\'s signature fragrance diffused at both entrances throughout the Christmas season. All Beadle uniforms featured the house\'s iconic ribbon. Joint campaign with Tatler and Harper\'s Bazaar ran for 8 weeks.',reach:'6.1M impressions',outcome:'45% uplift in UK direct-to-consumer sales during campaign period'},
+  {brand:'British Fashion Designer',format:'Cultural Installation + Pop-Up',desc:'A sculptural installation in the arcade\'s central concourse paired with a 6-week pop-up boutique. Featured as the headline off-schedule event at London Fashion Week. Covered by British Vogue, The Guardian, Wallpaper.',reach:'3.8M impressions',outcome:'Permanent lease signed following the success of the pop-up'}
+];
+
+function buildSponsorship(){
+  const c=document.getElementById('sponsorship-content');
+
+  // Tiers panel
+  let tp=`<div class="panel on" id="pnl-sponsorship-tiers"><div class="py-lg px">
+    <div class="sec-eyebrow rv">Partnership Tiers</div>
+    <h2 class="sec-h2 rv d1" style="margin-bottom:56px">Three levels of<br/><em>brand authority.</em></h2>
+    <div class="tier-wrap rv d2">`;
+  TIERS.forEach(t=>{
+    tp+=`<div class="tier${t.feat?' feat':''}">
+      ${t.feat?'<div class="tier-badge">Recommended</div>':''}
+      <div class="tier-num">${t.num}</div>
+      <div class="tier-name">${t.name}</div>
+      <div class="tier-dur">${t.dur}</div>
+      <ul class="tier-feat-list">${t.assets.map(a=>`<li>${a}</li>`).join('')}</ul>
+      <div class="tier-media">
+        <div class="tier-media-n">${t.media} earned media</div>
+        <div class="tier-media-l">Estimated value · ${t.reach}</div>
+      </div>
+      <button class="btn-${t.feat?'s':'g'}" onclick="goPage('enquiry')" style="margin-top:30px;width:100%;padding:15px">Enquire →</button>
+    </div>`;
+  });
+  tp+=`</div></div></div>`;
+
+  // Audience panel
+  let ap=`<div class="panel" id="pnl-sponsorship-audience"><div class="py-lg px">
+    <div class="sec-eyebrow rv">Audience Data</div>
+    <h2 class="sec-h2 rv d1" style="margin-bottom:56px">Who walks<br/><em>these floors.</em></h2>
+    <div class="aud-grid rv d2">
+      ${AUD_DATA.map(a=>`<div class="aud-big"><div class="aud-n">${a.n}</div><div class="aud-l">${a.l}</div><div class="aud-desc">${a.d}</div></div>`).join('')}
+    </div>
+    <div class="g2 rv d3" style="margin-top:60px;gap:40px">
+      <div class="card"><div class="card-tag">Notable Shoppers · Historical</div><div style="margin-top:16px;display:flex;flex-direction:column;gap:10px">${['HM Queen Elizabeth II','Marilyn Monroe','Grace Kelly','Sophia Loren','Sir Paul McCartney'].map(n=>`<div style="display:flex;align-items:center;gap:12px"><span style="color:var(--gold);font-size:9px">✦</span><span style="font-size:13px;color:var(--ivory-3)">${n}</span></div>`).join('')}</div></div>
+      <div class="card"><div class="card-tag">Film & Television Credits</div><div style="margin-top:16px;display:flex;flex-direction:column;gap:10px">${['Skyfall (2012) — Eon Productions','The Crown (Netflix)','Bridgerton (Netflix)','Downton Abbey (ITV/Universal)','50+ total production credits'].map(f=>`<div style="display:flex;align-items:center;gap:12px"><span style="color:var(--gold);font-size:9px">◆</span><span style="font-size:13px;color:var(--ivory-3)">${f}</span></div>`).join('')}</div></div>
+    </div>
+  </div></div>`;
+
+  // Examples panel
+  let ep=`<div class="panel" id="pnl-sponsorship-examples"><div class="py-lg px">
+    <div class="sec-eyebrow rv">Activation Examples</div>
+    <h2 class="sec-h2 rv d1" style="margin-bottom:60px">What great brands<br/><em>have done here.</em></h2>
+    <div class="ax-list rv d2">`;
+  EXAMPLES.forEach((e,i)=>{
+    ep+=`<div class="ax">
+      <div><div class="ax-num">0${i+1}</div><div class="ax-brand">${e.brand}</div><div class="ax-format">${e.format}</div><div class="ax-reach">✦ ${e.reach}</div></div>
+      <div><div class="ax-desc">${e.desc}</div><div class="ax-outcome">Outcome: ${e.outcome}</div></div>
+    </div>`;
+  });
+  ep+=`</div><div style="text-align:center;margin-top:72px" class="rv d3">
+    <button class="btn-s" onclick="goPage('enquiry')" style="padding:18px 60px;font-size:11px">Start a Partnership Conversation →</button>
+  </div></div></div>`;
+
+  c.innerHTML=tp+ap+ep;
+}
+
+/* ═══════════════════════════════════════════════════════
+   BUILD: VENUES MODULE
+═══════════════════════════════════════════════════════ */
+const VENUES=[
+  {icon:'🏛️',name:'The Grand Arcade',tagline:'196 yards of living history',cap_r:500,cap_s:120,
+   feats:['Original 1819 Regency glass-and-iron roof — intact and listed','Natural skylight illuminating the full 196-yard concourse','Polished Burlington Quarry stone flooring throughout','46 illuminated shopfront windows available for brand installation','Integrated PA system compatible with Regency acoustic environment','Fully climate-controlled year-round — air and heat'],
+   ideal:'Luxury product launches · Brand anniversary galas · Fashion week presentations · Corporate award ceremonies · Charity fundraising evenings',
+   status:'Available nightly from 18:00'},
+  {icon:'🕯️',name:'The Victorian Vaults',tagline:"Where 205 years of secrets are kept",cap_r:40,cap_s:20,
+   feats:['Original Victorian basement architecture — untouched since 1819','Cast-iron heating stoves from the Arcade\'s original fit-out','Atmospheric brick vaulting and passageways','Connected underground tunnel system beneath the arcade','Absolute privacy — completely invisible from street level','Access exclusively via Beadle escort — only route in or out'],
+   ideal:'UHNWI private dining · Board-level corporate retreats · Intimate collector previews · Documentary filming',
+   status:'By private arrangement only'},
+  {icon:'✦',name:'The Piccadilly Gateway',tagline:"London's most prestigious threshold",cap_r:80,cap_s:0,
+   feats:['1911 facade by sculptor Benjamin Clemens — Grade II listed','Dual Beadle sentinel positions at the Piccadilly entrance','Full visibility from one of London\'s busiest luxury thoroughfares','Historic wrought-iron arcade gates — an iconic backdrop','Adjacent to Bond Street\'s additional 40,000 daily pedestrians','Drone filming and live broadcast permitted by arrangement'],
+   ideal:'Product reveal moments · Red carpet arrivals · Brand film exterior shoots · Press launch photography · Flash brand activations',
+   status:'Available 06:00–09:00 or from 19:00'},
+  {icon:'🎨',name:'Royal Academy Partnership',tagline:'Art. Commerce. Culture. Unified.',cap_r:800,cap_s:350,
+   feats:['Combined Burlington Arcade + Royal Academy of Arts audience','Cross-ticketed event programming available across both institutions','World-class gallery and outdoor courtyard spaces directly adjacent','Shared UHNWI client entertainment and hospitality packages','Joint editorial partnerships — Vogue, The Art Newspaper, Apollo Magazine','Access to the Royal Academy\'s international artist and curator network'],
+   ideal:'Art-world brand activations · Cultural sponsorship launches · Collector evening programmes · Architecture and design events · Auction house preview evenings',
+   status:'By partnership arrangement — enquire'}
+];
+
+function buildVenues(){
+  const c=document.getElementById('venues-content');
+  let html=`<div class="py-lg px">
+    <div class="sec-eyebrow rv">Venue Spaces</div>
+    <h2 class="sec-h2 rv d1" style="margin-bottom:16px">Four spaces.<br/><em>One address.</em></h2>
+    <p class="sec-body rv d2" style="margin-bottom:60px;max-width:560px">No conference centre. No hotel ballroom. Each of Burlington Arcade's event spaces is defined by its original purpose — which is precisely what makes each one irreplaceable and priceless.</p>
+    <div class="venue-grid rv d3">`;
+  VENUES.forEach(v=>{
+    html+=`<div class="venue-card">
+      <span class="venue-icon">${v.icon}</span>
+      <div class="venue-name">${v.name}</div>
+      <div class="venue-tagline">${v.tagline}</div>
+      <div class="venue-caps">
+        <div><div class="vcap-n">${v.cap_r}</div><div class="vcap-l">Reception</div></div>
+        ${v.cap_s>0?`<div><div class="vcap-n">${v.cap_s}</div><div class="vcap-l">Seated</div></div>`:''}
+      </div>
+      <ul class="venue-feats">${v.feats.map(f=>`<li>${f}</li>`).join('')}</ul>
+      <div class="venue-ideal" style="margin-bottom:20px"><strong style="color:var(--stone-l);font-weight:400">Ideal for:</strong><br/>${v.ideal}</div>
+      <div class="venue-status"><div class="nav-dot" style="width:4px;height:4px"></div>${v.status}</div>
+      <button class="btn-g" onclick="goPage('enquiry')" style="margin-top:24px;width:100%">Enquire About This Space →</button>
+    </div>`;
+  });
+  html+=`</div>
+  <div style="background:var(--ink-2);border:1px solid var(--border);padding:56px 52px;margin-top:60px;text-align:center" class="rv d4">
+    <div class="sec-eyebrow" style="justify-content:center">Combined Capacity</div>
+    <h3 style="font-family:Cormorant Garamond,serif;font-size:clamp(30px,4vw,48px);font-weight:300;margin:16px 0 8px">All four spaces. <em style="color:var(--gold);font-style:italic">One evening.</em></h3>
+    <p style="font-size:14px;color:var(--stone);max-width:480px;margin:0 auto 32px;line-height:1.8">Combine the Grand Arcade, the Piccadilly Gateway, and the Royal Academy courtyard for a once-in-a-generation event for up to 1,300 guests.</p>
+    <button class="btn-s" onclick="goPage('enquiry')" style="padding:16px 52px">Enquire About Combined Hire →</button>
+  </div>
+  </div>`;
+  c.innerHTML=html;
+}
+
+/* ═══════════════════════════════════════════════════════
+   BUILD: ENQUIRY MODULE
+═══════════════════════════════════════════════════════ */
+function buildEnquiry(){
+  const c=document.getElementById('enquiry-content');
+  c.innerHTML=`
+  <div class="py-lg px">
+    <div class="enq-split">
+      <div>
+        <div class="sec-eyebrow rv">Begin Your Conversation</div>
+        <h2 class="sec-h2 rv d1" style="font-size:clamp(38px,5vw,64px)">The right address<br/><em>awaits you.</em></h2>
+        <div class="gold-rule rv d2"></div>
+        <p class="sec-body rv d2">Whether you are considering a retail lease, a brand partnership, or an exclusive event, our commercial team responds to every enquiry within 24 hours. We do not list vacancies publicly — each opportunity is presented personally.</p>
+        <address class="enq-info-addr rv d3">
+          <strong>Burlington Arcade</strong><br/>
+          51 Piccadilly, Mayfair<br/>
+          London W1J 0QJ<br/><br/>
+          <strong>Commercial Enquiries</strong><br/>
+          commercial@burlingtonarcade.com<br/>
+          +44 (0)20 7493 1764<br/><br/>
+          <strong>Opening Hours</strong><br/>
+          Mon – Fri 08:00 – 19:00<br/>
+          Saturday 09:00 – 19:00<br/>
+          Sunday 11:00 – 18:00
+        </address>
+        <div class="card rv d4" style="margin-top:44px">
+          <div class="card-tag">What happens next</div>
+          <ul class="next-steps-list" style="margin-top:18px">
+            <li><span class="ns-num"></span><span>Commercial Director review within 4 business hours</span></li>
+            <li><span class="ns-num"></span><span>Tailored opportunity pack sent to your email address</span></li>
+            <li><span class="ns-num"></span><span>Private site visit and consultation arranged at your convenience</span></li>
+            <li><span class="ns-num"></span><span>Heads of terms issued within 5 working days of meeting</span></li>
+          </ul>
+        </div>
+      </div>
+      <div>
+        <div id="main-form" class="rv d2">
+          <div class="form-row"><div class="fg"><label class="fl">First Name</label><input id="mf-fn" class="fi" placeholder="First name"/></div><div class="fg"><label class="fl">Last Name</label><input id="mf-ln" class="fi" placeholder="Last name"/></div></div>
+          <div class="fg"><label class="fl">Company / Brand</label><input id="mf-co" class="fi" placeholder="Your organisation"/></div>
+          <div class="form-row"><div class="fg"><label class="fl">Email</label><input id="mf-em" class="fi" type="email" placeholder="your@email.com"/></div><div class="fg"><label class="fl">Phone</label><input id="mf-ph" class="fi" placeholder="+44 (0)…"/></div></div>
+          <div class="fg"><label class="fl">Enquiry Type</label>
+            <select id="mf-ty" class="fs">
+              <option value="">Select enquiry type</option>
+              <option value="luxury-lease">Retail Lease — Luxury Flagship</option>
+              <option value="contemporary-lease">Retail Lease — Contemporary Luxury</option>
+              <option value="fnb-lease">Retail Lease — Food & Lifestyle</option>
+              <option value="popup">Pop-Up / Short-Term Retail (1 week – 12 months)</option>
+              <option value="event-buyout">Private Event — Full Arcade Buyout</option>
+              <option value="window-showcase">Event — Window Showcase Campaign</option>
+              <option value="heritage-tour">Heritage VIP Tour</option>
+              <option value="cultural-installation">Cultural Installation Programme</option>
+              <option value="sponsorship-presenting">Partnership — Presenting Partner (Annual)</option>
+              <option value="sponsorship-seasonal">Partnership — Seasonal Sponsor</option>
+              <option value="sponsorship-event">Partnership — Event Partner</option>
+              <option value="venue-hire">Venue Hire — General Enquiry</option>
+              <option value="press">Press / Media Enquiry</option>
+            </select>
+          </div>
+          <div class="fg"><label class="fl">Budget Indication</label>
+            <select id="mf-bu" class="fs">
+              <option value="">Prefer not to say at this stage</option>
+              <option value="<50k">Under £50,000</option>
+              <option value="50-150k">£50,000 – £150,000</option>
+              <option value="150-500k">£150,000 – £500,000</option>
+              <option value="500k+">£500,000+</option>
+            </select>
+          </div>
+          <div class="fg"><label class="fl">Tell Us More</label><textarea id="mf-ms" class="ft" style="height:90px" placeholder="Brief description of your interest, timeline, and any specific requirements…"></textarea></div>
+          <button class="btn-s" id="mf-btn" onclick="submitMain()" style="width:100%;padding:19px;font-size:11px;letter-spacing:.28em">Submit Enquiry →</button>
+        </div>
+        <div class="enq-success" id="mf-success">
+          <div class="enq-success-seal">✦</div>
+          <div class="enq-success-t">Enquiry Received</div>
+          <div class="enq-success-b" id="mf-success-b">Our commercial team will be in touch within 24 hours.</div>
+          <div class="enq-success-ref" id="mf-ref"></div>
+        </div>
+      </div>
+    </div>
+  </div>`;
+}
+
+async function submitMain(){
+  const fn=document.getElementById('mf-fn').value.trim();
+  const em=document.getElementById('mf-em').value.trim();
+  if(!fn||!em){alert('Please enter your name and email address.');return}
+  const btn=document.getElementById('mf-btn');
+  btn.textContent='Submitting…';btn.disabled=true;
+  let ref='BA-'+Date.now();
+  try{
+    const res=await fetch('/api/sales/enquiry',{method:'POST',
+      headers:{'Content-Type':'application/json','Authorization':'Bearer '+token},
+      body:JSON.stringify({name:fn+' '+document.getElementById('mf-ln').value,company:document.getElementById('mf-co').value,email:em,phone:document.getElementById('mf-ph').value,type:document.getElementById('mf-ty').value,budget:document.getElementById('mf-bu').value,message:document.getElementById('mf-ms').value})});
+    if(res.ok){const d=await res.json();ref=d.reference||ref}
+  }catch(e){}
+  document.querySelectorAll('#main-form .fg,#main-form .form-row').forEach(el=>el.style.display='none');
+  btn.style.display='none';
+  document.getElementById('mf-success-b').textContent=`Thank you ${fn}. Our commercial team will respond within 24 hours.`;
+  document.getElementById('mf-ref').textContent='Reference: '+ref;
+  document.getElementById('mf-success').style.display='block';
+  btn.textContent='Submit Enquiry →';btn.disabled=false;
+}
+</script>
+</body>
+</html>
