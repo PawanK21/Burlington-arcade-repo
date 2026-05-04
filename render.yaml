@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: burlington-arcade
+    runtime: java
+    runtimeVersion: 21
+    buildCommand: mvn clean package -DskipTests
+    startCommand: java -Dserver.port=$PORT -jar target/arcade-sales-deck-1.0.0.jar
+    envVars:
+      - key: JWT_SECRET
+        scope: build,runtime
+      - key: JWT_EXPIRATION
+        value: "3600000"
+        scope: runtime
+      - key: JWT_REFRESH_EXPIRATION
+        value: "86400000"
+        scope: runtime
+      - key: H2_CONSOLE_ENABLED
+        value: "false"
+        scope: runtime
